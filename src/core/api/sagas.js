@@ -16,3 +16,4 @@ function* fetchEntities(apiFunction, actions, id, param) {
 
 
 export const fetchNextTracks = fetchEntities.bind(null, api.fetch, tracklistRequestActions);
+export const fetchSearchResults = fetchEntities.bind(null, api.fetchSearchResults, tracklistRequestActions);

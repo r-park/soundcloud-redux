@@ -1,7 +1,7 @@
 import { call, put } from 'redux-saga/effects';
 import { tracklistRequestActions } from 'src/core/tracklists';
 import { api } from '../api-service';
-import { fetchNextTracks } from '../sagas';
+import { fetchNextTracks, fetchSearchResults } from '../sagas';
 
 
 describe('api', () => {
@@ -32,6 +32,32 @@ describe('api', () => {
         expectedPutPending = put(tracklistRequestActions.pending(tracklistId));
 
         generator = fetchNextTracks(tracklistId, 'https://next');
+      });
+
+      describe('when request is fulfilled', () => {
+        it('should yield effects', () => {
+          expect(generator.next().value).toEqual(expectedPutPending);
+          expect(generator.next().value).toEqual(expectedCallApi);
+          expect(generator.next(data).value).toEqual(expectedPutFulfilled);
+          expect(generator.next().done).toBe(true);
+        });
+      });
+
+      describe('when request fails', () => {
+        it('should yield effects', () => {
+          expect(generator.next().value).toEqual(expectedPutPending);
+          expect(generator.next().value).toEqual(expectedCallApi);
+          expect(generator.throw(error).value).toEqual(expectedPutFailed);
+          expect(generator.next().done).toBe(true);
+        });
+      });
+    });
+
+
+    describe('fetchSearchResults()', () => {
+      beforeEach(() => {
+        expectedCallApi = call(api.fetchSearchResults, 'query');
+        generator = fetchSearchResults(tracklistId, 'query');
       });
 
       describe('when request is fulfilled', () => {

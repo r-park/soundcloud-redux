@@ -1,10 +1,18 @@
 import request from 'superagent';
-import { CLIENT_ID_PARAM, PAGINATION_PARAMS } from 'src/core/constants';
+import { API_TRACKS_URL, CLIENT_ID_PARAM, PAGINATION_PARAMS } from 'src/core/constants';
 
 
 export const api = {
   fetch(url) {
     return dispatch({url});
+  },
+
+  fetchSearchResults(query) {
+    return dispatch({
+      paginate: true,
+      query: `q=${query}`,
+      url: API_TRACKS_URL
+    });
   }
 };
 
@@ -15,11 +23,12 @@ export function dispatch(options) {
     .then(response => response.body);
 }
 
-export function requestUrl({paginate, url}) {
+export function requestUrl({paginate, query, url}) {
   let params = [];
 
   if (!url.includes(CLIENT_ID_PARAM)) params.push(CLIENT_ID_PARAM);
   if (paginate) params.push(PAGINATION_PARAMS);
+  if (query) params.push(query);
 
   if (params.length) {
     url += url.indexOf('?') === -1 ? '?' : '&';

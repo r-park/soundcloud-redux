@@ -1,5 +1,6 @@
 import { Map } from 'immutable';
 import { SESSION_TRACKLIST_ID } from 'src/core/constants';
+import { searchActions } from 'src/core/search';
 import { tracklistActions } from './actions';
 import { Tracklist } from './tracklist';
 import { tracklistReducer } from './tracklist-reducer';
@@ -21,6 +22,12 @@ export function tracklistsReducer(state = initialState, action) {
         payload.tracklistId,
         tracklistReducer(state.get(payload.tracklistId), action)
       );
+
+    case searchActions.LOAD_SEARCH_RESULTS:
+      return state.merge({
+        currentTracklistId: payload.tracklistId,
+        [payload.tracklistId]: tracklistReducer(state.get(payload.tracklistId), action)
+      });
 
     case tracklistActions.MOUNT_TRACKLIST:
       return state.set('currentTracklistId', payload.tracklistId);

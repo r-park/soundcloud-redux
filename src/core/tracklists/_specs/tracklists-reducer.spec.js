@@ -1,5 +1,6 @@
 import { is, Map } from 'immutable';
 import { SESSION_TRACKLIST_ID } from 'src/core/constants';
+import { searchActions } from 'src/core/search';
 import { tracklistActions } from '../actions';
 import { Tracklist } from '../tracklist';
 import { tracklistsReducer } from '../tracklists-reducer';
@@ -48,6 +49,35 @@ describe('tracklists', () => {
         let tracklist = initialState.get('tracklist/1');
         let tracklists = tracklistsReducer(initialState, tracklistActions.fetchTracksPending('tracklist/1'));
         expect(tracklists.get('tracklist/1')).not.toBe(tracklist);
+      });
+    });
+
+
+    describe('LOAD_SEARCH_RESULTS action', () => {
+      let action;
+      let query;
+      let tracklistId;
+
+      beforeEach(() => {
+        query = 'query';
+        tracklistId = `search/${query}`;
+
+        action = {
+          type: searchActions.LOAD_SEARCH_RESULTS,
+          payload: {
+            tracklistId
+          }
+        };
+      });
+
+      it('should set currentTracklistId with payload.tracklistId', () => {
+        let tracklists = tracklistsReducer(initialState, action);
+        expect(tracklists.get('currentTracklistId')).toBe(tracklistId);
+      });
+
+      it('should add new tracklist if tracklist does not exist', () => {
+        let tracklists = tracklistsReducer(initialState, action);
+        expect(tracklists.has(tracklistId)).toBe(true);
       });
     });
 
