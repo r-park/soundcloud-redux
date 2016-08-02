@@ -1,5 +1,6 @@
 import App from './app';
 import HomePage from './pages/home';
+import SearchPage from './pages/search';
 
 
 export const routes = {
@@ -10,6 +11,10 @@ export const routes = {
       indexRoute: {
         component: HomePage
       }
+    },
+    {
+      path: '/search',
+      component: SearchPage
     }
   ]
 };
