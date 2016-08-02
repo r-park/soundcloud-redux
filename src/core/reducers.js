@@ -1,6 +1,9 @@
 import { combineReducers } from 'redux';
+import { tracklistsReducer } from './tracklists';
+import { tracksReducer } from './tracks';
 
 
 export default combineReducers({
-  tmp: () => ({})
+  tracklists: tracklistsReducer,
+  tracks: tracksReducer
 });
