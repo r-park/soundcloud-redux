@@ -1,0 +1,22 @@
+machine:
+  node:
+    version: 6.1
+
+dependencies:
+  pre:
+    - rm -rf node_modules
+
+test:
+  post:
+    - mv ./coverage ${CIRCLE_ARTIFACTS}
+
+deployment:
+  dev:
+    branch: /^dev.*/
+    commands:
+      - git push -f git@heroku.com:${HEROKU_APP_DEV}.git ${CIRCLE_BRANCH}:master
+
+  staging:
+    branch: master
+    commands:
+      - git push -f git@heroku.com:${HEROKU_APP_STAGING}.git ${CIRCLE_BRANCH}:master
