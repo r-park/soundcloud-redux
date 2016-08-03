@@ -1,0 +1,1 @@
+export { createShallowEqualSelector } from './selectors';

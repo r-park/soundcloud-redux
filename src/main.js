@@ -4,6 +4,7 @@ import { AppContainer } from 'react-hot-loader';
 import { browserHistory } from 'react-router';
 
 import './views/styles/styles.scss';
+import { appActions } from './core/app';
 import configureStore from './core/store';
 import Root from './views/root';
 
@@ -31,4 +32,5 @@ if (module.hot) {
 }
 
 
+store.dispatch(appActions.initApp());
 render(Root);
