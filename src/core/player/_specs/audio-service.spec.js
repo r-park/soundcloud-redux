@@ -127,5 +127,13 @@ describe('player', () => {
         expect(audio.play).toHaveBeenCalledTimes(1);
       });
     });
+
+
+    describe('seek()', () => {
+      it('should set audio.currentTime', () => {
+        audioService.seek(100);
+        expect(audio.currentTime).toBe(100);
+      });
+    });
   });
 });

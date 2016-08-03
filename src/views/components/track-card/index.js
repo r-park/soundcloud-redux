@@ -1,11 +1,13 @@
 import React from 'react';
 import { Track } from 'src/core/tracks';
+import AudioTimeline from '../audio-timeline';
 
 
 function TrackCard({isPlaying, isSelected, pause, play, track}) {
   return (
     <article style={{borderTop: '1px solid #ddd'}}>
       <div>{track.title}</div>
+      {isSelected ? <AudioTimeline /> : null}
       <div>{'isPlaying: ' + isPlaying}</div>
       <div>{'isSelected: ' + isSelected}</div>
       <button onClick={pause} type="button">Pause</button>

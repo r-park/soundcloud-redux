@@ -36,6 +36,19 @@ describe('player', () => {
     });
 
 
+    describe('audioTimeUpdated()', () => {
+      it('should create an action', () => {
+        let times = {buffered: 100, current: 200};
+        let action = playerActions.audioTimeUpdated(times);
+
+        expect(action).toEqual({
+          type: playerActions.AUDIO_TIME_UPDATED,
+          payload: times
+        });
+      });
+    });
+
+
     describe('audioVolumeChanged()', () => {
       it('should create an action', () => {
         let volume = 5;

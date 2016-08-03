@@ -10,6 +10,10 @@ export function getPlayerIsPlaying(state) {
   return state.player.isPlaying;
 }
 
+export function getPlayerTimes(state) {
+  return state.playerTimes;
+}
+
 export function getPlayerTrackId(state) {
   return state.player.trackId;
 }

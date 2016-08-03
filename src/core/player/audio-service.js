@@ -9,12 +9,26 @@ export function initAudio(emit, audio = new Audio()) {
   audio.addEventListener('ended', () => emit(playerActions.audioEnded()));
   audio.addEventListener('pause', () => emit(playerActions.audioPaused()));
   audio.addEventListener('playing', () => emit(playerActions.audioPlaying()));
+  audio.addEventListener('timeupdate', event => emit(playerActions.audioTimeUpdated(getTimes(event))));
   audio.addEventListener('volumechange', () => emit(playerActions.audioVolumeChanged(getVolume())));
 
   _audio = audio;
   return () => {};
 }
 
+
+export function getTimes(event) {
+  const { buffered, currentTime, duration } = event.target;
+  const bufferedTime = buffered.length ? buffered.end(0) : 0;
+
+  return {
+    bufferedTime,
+    currentTime,
+    duration,
+    percentBuffered: `${(bufferedTime / duration * 100) || 0}%`,
+    percentCompleted: `${(currentTime / duration * 100) || 0}%`
+  };
+}
 
 export function getVolume() {
   return Math.floor(_audio.volume * 100);
@@ -47,5 +61,9 @@ export const audio = {
   play() {
     let promise = _audio.play();
     if (promise && promise.catch) promise.catch(() => {});
+  },
+
+  seek(time) {
+    _audio.currentTime = time;
   }
 };

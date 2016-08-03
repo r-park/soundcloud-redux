@@ -1,8 +1,10 @@
 import { List, Map } from 'immutable';
-import { PlayerState } from '../reducer';
+import { PlayerState } from '../player-reducer';
+import { PlayerTimesState } from '../player-times-reducer';
 import {
   getPlayer,
   getPlayerIsPlaying,
+  getPlayerTimes,
   getPlayerTrack,
   getPlayerTrackId,
   getPlayerTracklist,
@@ -32,6 +34,7 @@ describe('player', () => {
           tracklistId: 'tracklist/1',
           volume: 10
         }),
+        playerTimes: new PlayerTimesState(),
         tracklists: new Map({'tracklist/1': tracklist}),
         tracks: new Map().set(1, track)
       };
@@ -48,6 +51,13 @@ describe('player', () => {
     describe('getPlayerIsPlaying()', () => {
       it('should return PlayerState.isPlaying', () => {
         expect(getPlayerIsPlaying(state)).toBe(true);
+      });
+    });
+
+
+    describe('getPlayerTimes()', () => {
+      it('should return PlayerTimesState', () => {
+        expect(getPlayerTimes(state)).toBe(state.playerTimes);
       });
     });
 

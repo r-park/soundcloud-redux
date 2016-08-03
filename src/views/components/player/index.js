@@ -4,6 +4,10 @@ import { audio, playerActions, getPlayer, getPlayerTrack, getPlayerTracklistCurs
 import { Track } from 'src/core/tracks';
 import { createShallowEqualSelector } from 'src/core/utils';
 
+import AudioCurrentTime from '../audio-current-time';
+import AudioTimeline from '../audio-timeline';
+import FormattedTime from '../formatted-time';
+
 
 export function Player({
   decreaseVolume,
@@ -19,6 +23,10 @@ export function Player({
 
   return (
     <div>
+      <AudioTimeline />
+
+      <br /><br />
+
       <div>
         <button onClick={previousTrack} type="button">Prev</button>
         <button onClick={play} type="button">Play</button>
@@ -35,6 +43,10 @@ export function Player({
       </div>
 
       <div>{track.title}</div>
+
+      <div>
+        <AudioCurrentTime /> / <FormattedTime value={track.duration} unit={'ms'} />
+      </div>
     </div>
   );
 }

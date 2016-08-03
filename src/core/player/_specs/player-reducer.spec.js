@@ -1,6 +1,6 @@
 import { is } from 'immutable';
 import { playerActions } from '../actions';
-import { playerReducer, PlayerState } from '../reducer';
+import { playerReducer, PlayerState } from '../player-reducer';
 
 
 describe('player', () => {
