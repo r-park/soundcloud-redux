@@ -16,6 +16,23 @@ export function getCurrentTracklist(state) {
   return tracklists.get(tracklists.get('currentTracklistId'));
 }
 
+export function getTracklistCursor(selectedTrackId, trackIds) {
+  let index = trackIds.indexOf(selectedTrackId);
+  let nextTrackId = null;
+  let previousTrackId = null;
+
+  if (index !== -1) {
+    if (index < trackIds.size - 1) nextTrackId = trackIds.get(index + 1);
+    if (index > 0) previousTrackId = trackIds.get(index - 1);
+  }
+
+  return {
+    nextTrackId,
+    previousTrackId,
+    selectedTrackId
+  };
+}
+
 
 //=====================================
 //  MEMOIZED SELECTORS

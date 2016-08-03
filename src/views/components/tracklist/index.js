@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import { List } from 'immutable';
+import { audio, getPlayerIsPlaying, getPlayerTrackId, playerActions } from 'src/core/player';
 import { getCurrentTracklist, getTracksForCurrentTracklist, tracklistActions } from 'src/core/tracklists';
 import TrackCard from '../track-card';
 
@@ -10,7 +11,13 @@ export class Tracklist extends React.Component {
   static propTypes = {
     hasNextPage: React.PropTypes.bool.isRequired,
     isPending: React.PropTypes.bool.isRequired,
+    isPlaying: React.PropTypes.bool.isRequired,
     loadNextTracks: React.PropTypes.func.isRequired,
+    pause: React.PropTypes.func.isRequired,
+    play: React.PropTypes.func.isRequired,
+    selectTrack: React.PropTypes.func.isRequired,
+    selectedTrackId: React.PropTypes.number,
+    tracklistId: React.PropTypes.string.isRequired,
     tracks: React.PropTypes.instanceOf(List).isRequired
   };
 
@@ -21,8 +28,20 @@ export class Tracklist extends React.Component {
   }
 
   renderTrackCards() {
-    return this.props.tracks.map((track, index) => {
-      return <TrackCard key={index} track={track} />;
+    const { isPlaying, pause, play, selectedTrackId, selectTrack, tracklistId, tracks } = this.props;
+
+    return tracks.map((track, index) => {
+      let isSelected = track.id === selectedTrackId;
+      return (
+        <TrackCard
+          isPlaying={isSelected && isPlaying}
+          isSelected={isSelected}
+          key={index}
+          pause={pause}
+          play={isSelected ? play : selectTrack.bind(null, track.id, tracklistId)}
+          track={track}
+        />
+      );
     });
   }
 
@@ -43,17 +62,25 @@ export class Tracklist extends React.Component {
 //-------------------------------------
 
 const mapStateToProps = createSelector(
+  getPlayerIsPlaying,
+  getPlayerTrackId,
   getCurrentTracklist,
   getTracksForCurrentTracklist,
-  (tracklist, tracks) => ({
+  (isPlaying, playerTrackId, tracklist, tracks) => ({
     hasNextPage: tracklist.hasNextPage,
     isPending: tracklist.isPending,
+    isPlaying,
+    pause: audio.pause,
+    play: audio.play,
+    selectedTrackId: playerTrackId,
+    tracklistId: tracklist.id,
     tracks
   })
 );
 
 const mapDispatchToProps = {
-  loadNextTracks: tracklistActions.loadNextTracks
+  loadNextTracks: tracklistActions.loadNextTracks,
+  selectTrack: playerActions.playSelectedTrack
 };
 
 export default connect(

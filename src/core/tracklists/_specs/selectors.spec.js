@@ -11,6 +11,7 @@ import {
   getCurrentTrackIds,
   getCurrentTracklist,
   getTracklistById,
+  getTracklistCursor,
   getTracklists,
   getTracksForCurrentTracklist
 } from '../selectors';
@@ -105,14 +106,6 @@ describe('tracklists', () => {
     });
 
 
-    describe('getCurrentTracklist()', () => {
-      it('should return the currently mounted tracklist', () => {
-        let tracklist = getCurrentTracklist(store.getState());
-        expect(tracklist.id).toBe('tracklist/1');
-      });
-    });
-
-
     describe('getTracksForCurrentTracklist()', () => {
       it('should return list of tracks for currently mounted tracklist', () => {
         let tracks = getTracksForCurrentTracklist(store.getState());
@@ -153,10 +146,48 @@ describe('tracklists', () => {
     });
 
 
+    describe('getCurrentTracklist()', () => {
+      it('should return the currently mounted tracklist', () => {
+        let tracklist = getCurrentTracklist(store.getState());
+        expect(tracklist.id).toBe('tracklist/1');
+      });
+    });
+
+
     describe('getTracklistById()', () => {
       it('should return tracklist with provided tracklist id', () => {
         let state = store.getState();
         expect(getTracklistById(state, 'tracklist/1')).toBe(state.tracklists.get('tracklist/1'));
+      });
+    });
+
+
+    describe('getTracklistCursor()', () => {
+      it('should return cursor derived from provided track id and tracklist.trackIds', () => {
+        let trackIds = new List([1, 2, 3]);
+        let cursor = getTracklistCursor(1, trackIds); // trackIds: [1] 2 3
+
+        expect(cursor).toEqual({
+          previousTrackId: null,
+          selectedTrackId: 1,
+          nextTrackId: 2
+        });
+
+        cursor = getTracklistCursor(2, trackIds); // trackIds: 1 [2] 3
+
+        expect(cursor).toEqual({
+          previousTrackId: 1,
+          selectedTrackId: 2,
+          nextTrackId: 3
+        });
+
+        cursor = getTracklistCursor(3, trackIds); // trackIds: 1 2 [3]
+
+        expect(cursor).toEqual({
+          previousTrackId: 2,
+          selectedTrackId: 3,
+          nextTrackId: null
+        });
       });
     });
 
