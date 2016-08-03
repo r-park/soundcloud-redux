@@ -1,4 +1,4 @@
-import { PLAYER_INITIAL_VOLUME, PLAYER_MAX_VOLUME, PLAYER_VOLUME_INCREMENT } from 'src/core/constants';
+import { PLAYER_MAX_VOLUME, PLAYER_VOLUME_INCREMENT } from 'src/core/constants';
 import { playerActions } from './actions';
 
 
@@ -12,8 +12,6 @@ export function initAudio(emit, audio = new Audio()) {
   audio.addEventListener('volumechange', () => emit(playerActions.audioVolumeChanged(getVolume())));
 
   _audio = audio;
-  setVolume(PLAYER_INITIAL_VOLUME);
-
   return () => {};
 }
 

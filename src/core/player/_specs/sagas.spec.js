@@ -1,17 +1,22 @@
 import { eventChannel } from 'redux-saga';
 import { call, fork, put, select, take } from 'redux-saga/effects';
 import { appActions } from 'src/core/app';
+import { PLAYER_INITIAL_VOLUME } from 'src/core/constants';
 import { playerActions } from '../actions';
-import { audio, initAudio } from '../audio-service';
+import { audio, initAudio, setVolume } from '../audio-service';
 import {
   playNextTrack,
   playSelectedTrack,
+  saveVolumeToStorage,
+  setVolumeFromStorage,
   subscribeToAudio,
   watchAudioEnded,
+  watchAudioVolumeChanged,
   watchInitApp,
   watchPlaySelectedTrack
 } from '../sagas';
 import { getPlayerTrack, getPlayerTracklistCursor } from '../selectors';
+import { playerStorage } from '../storage';
 
 
 describe('player', () => {
@@ -68,6 +73,54 @@ describe('player', () => {
     });
 
 
+    describe('saveVolumeToStorage()', () => {
+      it('should call playerStorage.setVolume()', () => {
+        let payload = {volume: 10};
+        let generator = saveVolumeToStorage(payload);
+
+        expect(generator.next().value).toEqual(
+          call(playerStorage.setVolume, payload.volume)
+        );
+      });
+    });
+
+
+    describe('setVolumeFromStorage()', () => {
+      describe('when volume is found in localStorage', () => {
+        const generator = setVolumeFromStorage();
+
+        it('should call playerStorage.getVolume()', () => {
+          expect(generator.next().value).toEqual(
+            call(playerStorage.getVolume)
+          );
+        });
+
+        it('should call audioService.setVolume() with provided volume', () => {
+          let volume = 200;
+          expect(generator.next(volume).value).toEqual(
+            call(setVolume, volume)
+          );
+        });
+      });
+
+      describe('when volume is NOT found in localStorage', () => {
+        const generator = setVolumeFromStorage();
+
+        it('should call playerStorage.getVolume()', () => {
+          expect(generator.next().value).toEqual(
+            call(playerStorage.getVolume)
+          );
+        });
+
+        it('should call audioService.setVolume() with PLAYER_INITIAL_VOLUME', () => {
+          expect(generator.next(null).value).toEqual(
+            call(setVolume, PLAYER_INITIAL_VOLUME)
+          );
+        });
+      });
+    });
+
+
     describe('subscribeToAudio()', () => {
       const generator = subscribeToAudio();
 
@@ -112,6 +165,25 @@ describe('player', () => {
     });
 
 
+    describe('watchAudioVolumeChanged()', () => {
+      const generator = watchAudioVolumeChanged();
+
+      it('should take AUDIO_VOLUME_CHANGED action', () => {
+        expect(generator.next().value).toEqual(
+          take(playerActions.AUDIO_VOLUME_CHANGED)
+        );
+      });
+
+      it('should fork saveVolumeToStorage()', () => {
+        let action = {payload: {volume: 10}};
+
+        expect(generator.next(action).value).toEqual(
+          fork(saveVolumeToStorage, action.payload)
+        );
+      });
+    });
+
+
     describe('watchInitApp()', () => {
       const generator = watchInitApp();
 
@@ -124,6 +196,12 @@ describe('player', () => {
       it('should fork subscribeToAudio()', () => {
         expect(generator.next().value).toEqual(
           fork(subscribeToAudio)
+        );
+      });
+
+      it('should fork setVolumeFromStorage()', () => {
+        expect(generator.next().value).toEqual(
+          fork(setVolumeFromStorage)
         );
       });
     });

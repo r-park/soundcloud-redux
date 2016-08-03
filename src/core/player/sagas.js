@@ -2,9 +2,11 @@
 import { eventChannel } from 'redux-saga';
 import { call, fork, put, select, take } from 'redux-saga/effects';
 import { appActions } from 'src/core/app';
+import { PLAYER_INITIAL_VOLUME } from 'src/core/constants';
 import { playerActions } from './actions';
-import { audio, initAudio } from './audio-service';
+import { audio, initAudio, setVolume } from './audio-service';
 import { getPlayerTrack, getPlayerTracklistCursor } from './selectors';
+import { playerStorage } from './storage';
 
 
 export function* playNextTrack() {
@@ -18,6 +20,16 @@ export function* playSelectedTrack() {
   const track = yield select(getPlayerTrack);
   yield call(audio.load, track.streamUrl);
   yield call(audio.play);
+}
+
+export function* saveVolumeToStorage({volume}) {
+  yield call(playerStorage.setVolume, volume);
+}
+
+export function* setVolumeFromStorage() {
+  let volume = yield call(playerStorage.getVolume);
+  if (typeof volume !== 'number') volume = PLAYER_INITIAL_VOLUME;
+  yield call(setVolume, volume);
 }
 
 export function* subscribeToAudio() {
@@ -40,10 +52,18 @@ export function* watchAudioEnded() {
   }
 }
 
+export function* watchAudioVolumeChanged() {
+  while (true) {
+    const { payload } = yield take(playerActions.AUDIO_VOLUME_CHANGED);
+    yield fork(saveVolumeToStorage, payload);
+  }
+}
+
 export function* watchInitApp() {
   while (true) {
     yield take(appActions.INIT_APP);
     yield fork(subscribeToAudio);
+    yield fork(setVolumeFromStorage);
   }
 }
 
@@ -61,6 +81,7 @@ export function* watchPlaySelectedTrack() {
 
 export const playerSagas = [
   fork(watchAudioEnded),
+  fork(watchAudioVolumeChanged),
   fork(watchInitApp),
   fork(watchPlaySelectedTrack)
 ];
