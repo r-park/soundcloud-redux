@@ -32,5 +32,16 @@ describe('search', () => {
         });
       });
     });
+
+
+    describe('toggleSearchField()', () => {
+      it('should create an action', () => {
+        let action = searchActions.toggleSearchField();
+
+        expect(action).toEqual({
+          type: searchActions.TOGGLE_SEARCH_FIELD
+        });
+      });
+    });
   });
 });

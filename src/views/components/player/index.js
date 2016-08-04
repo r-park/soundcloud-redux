@@ -7,11 +7,14 @@ import { createShallowEqualSelector } from 'src/core/utils';
 import AudioCurrentTime from '../audio-current-time';
 import AudioTimeline from '../audio-timeline';
 import FormattedTime from '../formatted-time';
+import FormattedVolume from '../formatted-volume';
+import IconButton from '../icon-button';
 
 
 export function Player({
   decreaseVolume,
   increaseVolume,
+  isPlaying,
   nextTrack,
   pause,
   play,
@@ -22,30 +25,53 @@ export function Player({
   if (!track) return null;
 
   return (
-    <div>
-      <AudioTimeline />
-
-      <br /><br />
-
-      <div>
-        <button onClick={previousTrack} type="button">Prev</button>
-        <button onClick={play} type="button">Play</button>
-        <button onClick={pause} type="button">Pause</button>
-        <button onClick={nextTrack} type="button">Next</button>
+    <div className="player">
+      <div className="player-timeline">
+        <AudioTimeline />
       </div>
 
-      <br /><br />
+      <div className="player-controls">
+        <div>
+          <IconButton
+            icon="skip-previous"
+            label="Skip to previous track"
+            onClick={previousTrack}
+          />
 
-      <div>
-        <button onClick={decreaseVolume} type="button">–</button>
-        {volume}
-        <button onClick={increaseVolume} type="button">+</button>
-      </div>
+          <IconButton
+            icon={isPlaying ? 'pause' : 'play'}
+            label={isPlaying ? 'Pause' : 'Play'}
+            onClick={isPlaying ? pause : play}
+          />
 
-      <div>{track.title}</div>
+          <IconButton
+            icon="skip-next"
+            label="Skip to next track"
+            onClick={nextTrack}
+          />
+        </div>
 
-      <div>
-        <AudioCurrentTime /> / <FormattedTime value={track.duration} unit={'ms'} />
+        <div className="player-controls__time">
+          <AudioCurrentTime /> / <FormattedTime value={track.duration} unit={'ms'} />
+        </div>
+
+        <div className="player-controls__title">{track.title}</div>
+
+        <div className="player-controls__volume">
+          <IconButton
+            icon="remove"
+            label="Decrease volume"
+            onClick={decreaseVolume}
+          />
+
+          <FormattedVolume value={volume} />
+
+          <IconButton
+            icon="add"
+            label="Increase volume"
+            onClick={increaseVolume}
+          />
+        </div>
       </div>
     </div>
   );
@@ -54,6 +80,7 @@ export function Player({
 Player.propTypes = {
   decreaseVolume: React.PropTypes.func.isRequired,
   increaseVolume: React.PropTypes.func.isRequired,
+  isPlaying: React.PropTypes.bool.isRequired,
   nextTrack: React.PropTypes.func,
   pause: React.PropTypes.func.isRequired,
   play: React.PropTypes.func.isRequired,

@@ -1,9 +1,23 @@
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
-}
+@import
+'settings',
+'~minx/src/settings',
+'~minx/src/functions',
+'~minx/src/mixins',
+'~minx/src/reset',
+'~minx/src/elements';
 
-html {
-  box-sizing: border-box;
-}
+@import
+'elements',
+'layout',
+'app',
+'app-header',
+'audio-timeline',
+'button',
+'content-header',
+'icon',
+'icon-button',
+'player',
+'search-bar',
+'search-page',
+'track-card',
+'tracklist';

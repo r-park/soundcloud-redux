@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { searchActions } from 'src/core/search';
+
+import ContentHeader from '../../components/content-header';
 import Tracklist from '../../components/tracklist';
 
 
@@ -21,7 +23,16 @@ export class SearchPage extends React.Component {
   }
 
   render() {
-    return <Tracklist />;
+    return (
+      <section>
+        <ContentHeader
+          section="Search Results"
+          title={this.props.query}
+        />
+
+        <Tracklist />
+      </section>
+    );
   }
 }
 

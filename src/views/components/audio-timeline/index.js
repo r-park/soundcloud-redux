@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
+import classNames from 'classnames';
 import { audio, getPlayerTimes, PlayerTimesState } from 'src/core/player';
 
 
@@ -25,12 +26,12 @@ export class AudioTimeline extends React.Component {
   }
 
   render() {
-    let { percentBuffered, percentCompleted } = this.props.times;
+    let { bufferedTime, percentBuffered, percentCompleted } = this.props.times;
 
     return (
-      <div onClick={this.handleClick}>
-        <div style={{width: percentBuffered, height: '5px', background: '#aaffaa'}} />
-        <div style={{width: percentCompleted, height: '5px', background: '#66bb66'}} />
+      <div className="audio-timeline" onClick={this.handleClick}>
+        <div className={classNames('bar bar--buffered', {'bar--animated': bufferedTime > 0})} style={{width: percentBuffered}} />
+        <div className="bar bar--completed" style={{width: percentCompleted}} />
       </div>
     );
   }

@@ -23,32 +23,34 @@ export class Tracklist extends React.Component {
 
   renderPaginationButton() {
     return (
-      <button onClick={this.props.loadNextTracks} type="button">Next</button>
+      <div className="g-col">
+        <button onClick={this.props.loadNextTracks} type="button">Next</button>
+      </div>
     );
   }
 
-  renderTrackCards() {
+  render() {
     const { isPlaying, pause, play, selectedTrackId, selectTrack, tracklistId, tracks } = this.props;
 
-    return tracks.map((track, index) => {
+    const trackCards = tracks.map((track, index) => {
       let isSelected = track.id === selectedTrackId;
       return (
-        <TrackCard
-          isPlaying={isSelected && isPlaying}
-          isSelected={isSelected}
-          key={index}
-          pause={pause}
-          play={isSelected ? play : selectTrack.bind(null, track.id, tracklistId)}
-          track={track}
-        />
+        <div className="g-col" key={index}>
+          <TrackCard
+            isPlaying={isSelected && isPlaying}
+            isSelected={isSelected}
+            pause={pause}
+            play={isSelected ? play : selectTrack.bind(null, track.id, tracklistId)}
+            track={track}
+          />
+        </div>
       );
     });
-  }
 
-  render() {
     return (
-      <div>
-        <div>{this.renderTrackCards()}</div>
+      <div className="g-row tracklist">
+        {trackCards}
+
         <div>{this.props.isPending ? <h1>LOADING TRACKS</h1> : null}</div>
         {this.props.hasNextPage ? this.renderPaginationButton() : null}
       </div>
