@@ -1,10 +1,11 @@
 import React from 'react';
 import { Track } from 'src/core/tracks';
-import AudioTimeline from '../audio-timeline';
+
 import FormattedInteger from '../formatted-integer';
 import FormattedTime from '../formatted-time';
 import Icon from '../icon';
 import IconButton from '../icon-button';
+import WaveformTimeline from '../waveform-timeline';
 
 
 export class TrackCard extends React.Component {
@@ -18,8 +19,8 @@ export class TrackCard extends React.Component {
 
   shouldComponentUpdate(nextProps) {
     return nextProps.track !== this.props.track ||
-           nextProps.isPlaying !== this.props.isPlaying ||
-           nextProps.isSelected !== this.props.isSelected;
+      nextProps.isPlaying !== this.props.isPlaying ||
+      nextProps.isSelected !== this.props.isSelected;
   }
 
   render() {
@@ -35,7 +36,10 @@ export class TrackCard extends React.Component {
           <div className="track-card__username">{track.username}</div>
           <h1 className="track-card__title">{track.title}</h1>
 
-          {isSelected ? <AudioTimeline /> : null}
+          <WaveformTimeline
+            displayProgress={isSelected}
+            url={track.waveformUrl}
+          />
 
           <div className="track-card__actions">
             <div className="cell">
