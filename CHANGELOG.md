@@ -1,3 +1,17 @@
+<a name="0.3.0"></a>
+# [0.3.0](https://github.com/r-park/soundcloud-redux/compare/v0.2.0...v0.3.0) (2016-08-07)
+
+
+### Features
+
+* **views:** infinite scrolling ([1fde19e](https://github.com/r-park/soundcloud-redux/commit/1fde19e))
+* **views:** load and display waveform data ([fe07ae8](https://github.com/r-park/soundcloud-redux/commit/fe07ae8))
+* **views:** observe MediaQueryList changes ([2c2b289](https://github.com/r-park/soundcloud-redux/commit/2c2b289))
+* **views:** styling and behaviour ([ad5acf5](https://github.com/r-park/soundcloud-redux/commit/ad5acf5))
+* **views:** tiled layout for smaller screens ([cb25abf](https://github.com/r-park/soundcloud-redux/commit/cb25abf))
+
+
+
 <a name="0.2.0"></a>
 # [0.2.0](https://github.com/r-park/soundcloud-redux/compare/v0.1.0...v0.2.0) (2016-08-03)
 
