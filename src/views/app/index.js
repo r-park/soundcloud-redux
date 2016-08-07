@@ -1,23 +1,35 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { searchActions } from 'src/core/search';
+import { createSelector } from 'reselect';
+import { getSearch, searchActions } from 'src/core/search';
+
+import AppHeader from '../components/app-header';
 import Player from '../components/player';
-import SearchForm from '../components/search-form';
 
 
-export function App({children, handleSearch}) {
+export function App({children, handleSearch, search, toggleSearch}) {
   return (
-    <main>
+    <div>
+      <AppHeader
+        handleSearch={handleSearch}
+        search={search}
+        toggleSearch={toggleSearch}
+      />
+
+      <main className="main">
+        {children}
+      </main>
+
       <Player />
-      <SearchForm handleSearch={handleSearch} />
-      {children}
-    </main>
+    </div>
   );
 }
 
 App.propTypes = {
   children: React.PropTypes.element,
-  handleSearch: React.PropTypes.func.isRequired
+  handleSearch: React.PropTypes.func.isRequired,
+  search: React.PropTypes.object.isRequired,
+  toggleSearch: React.PropTypes.func.isRequired
 };
 
 
@@ -25,11 +37,19 @@ App.propTypes = {
 //  CONNECT
 //-------------------------------------
 
+const mapStateToProps = createSelector(
+  getSearch,
+  search => ({
+    search: search.toJS()
+  })
+);
+
 const mapDispatchToProps = {
-  handleSearch: searchActions.navigateToSearch
+  handleSearch: searchActions.navigateToSearch,
+  toggleSearch: searchActions.toggleSearchField
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(App);

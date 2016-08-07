@@ -21,12 +21,14 @@ describe('tracks', () => {
       expect(track.id).toBe(null);
       expect(track.liked).toBe(null);
       expect(track.likesCount).toBe(null);
+      expect(track.permalinkUrl).toBe(null);
       expect(track.playbackCount).toBe(null);
       expect(track.streamable).toBe(null);
       expect(track.streamUrl).toBe(null);
       expect(track.title).toBe(null);
       expect(track.userId).toBe(null);
       expect(track.username).toBe(null);
+      expect(track.userPermalinkUrl).toBe(null);
       expect(track.waveformUrl).toBe(null);
     });
   });
@@ -39,6 +41,7 @@ describe('tracks', () => {
         duration: 2340816,
         id: 21857834,
         likes_count: 1582,
+        permalink_url: 'https://soundcloud.com/username/track-name',
         playback_count: 73808,
         stream_url: 'https://api.soundcloud.com/tracks/62179245/stream',
         streamable: true,
@@ -46,7 +49,8 @@ describe('tracks', () => {
         user: {
           avatar_url: 'https://i1.sndcdn.com/avatars-000153825204-75k7v2-large.jpg',
           id: 1570627,
-          username: 'Mount Kimbie'
+          username: 'Mount Kimbie',
+          permalink_url: 'https://soundcloud.com/username'
         },
         user_favorite: false,
         waveform_url: 'https://w1.sndcdn.com/mgveJa3vpfkf_m.png'
@@ -58,12 +62,14 @@ describe('tracks', () => {
         id: trackData.id,
         liked: trackData.user_favorite,
         likesCount: trackData.likes_count,
+        permalinkUrl: trackData.permalink_url,
         playbackCount: trackData.playback_count,
         streamable: trackData.streamable,
         streamUrl: `https://api.soundcloud.com/tracks/62179245/stream?${CLIENT_ID_PARAM}`,
         title: 'RA.216 – Mount Kimbie',
         userId: trackData.user.id,
         username: trackData.user.username,
+        userPermalinkUrl: trackData.user.permalink_url,
         waveformUrl: 'https://wis.sndcdn.com/mgveJa3vpfkf_m.json'
       });
 

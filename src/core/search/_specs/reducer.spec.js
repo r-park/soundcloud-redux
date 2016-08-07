@@ -27,5 +27,20 @@ describe('search', () => {
         expect(search.currentQuery).toBe(query);
       });
     });
+
+
+    describe('TOGGLE_SEARCH_FIELD action', () => {
+      it('should toggle SearchState.open', () => {
+        let action = searchActions.toggleSearchField();
+        let search = searchReducer(undefined, action);
+
+        expect(search.open).toBe(true);
+
+        action = searchActions.toggleSearchField();
+        search = searchReducer(search, action);
+
+        expect(search.open).toBe(false);
+      });
+    });
   });
 });

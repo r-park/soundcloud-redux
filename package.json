@@ -82,6 +82,7 @@
     "nodemon": "~1.10.0",
     "npm-run-all": "~2.3.0",
     "postcss-loader": "~0.9.1",
+    "raw-loader": "~0.5.1",
     "react": "~15.3.0",
     "react-addons-test-utils": "~15.3.0",
     "react-dom": "~15.3.0",
