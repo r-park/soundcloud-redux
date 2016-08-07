@@ -2,7 +2,7 @@ import 'rxjs/add/observable/interval';
 import 'rxjs/add/operator/take';
 
 import { Observable } from 'rxjs/Observable';
-import { scrollData$ } from './scroll-data';
+import { scrollData$ } from '../scroll/scroll-data';
 
 
 describe('browser', () => {

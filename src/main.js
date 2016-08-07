@@ -6,6 +6,7 @@ import { browserHistory } from 'react-router';
 import './views/styles/styles.scss';
 import { appActions } from './core/app';
 import configureStore from './core/store';
+import mediaQueryRules from './views/media';
 import Root from './views/root';
 
 
@@ -32,5 +33,8 @@ if (module.hot) {
 }
 
 
-store.dispatch(appActions.initApp());
+store.dispatch(appActions.initApp({
+  media: mediaQueryRules
+}));
+
 render(Root);

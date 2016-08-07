@@ -5,10 +5,12 @@ describe('app', () => {
   describe('actions', () => {
     describe('initApp()', () => {
       it('should create an action', () => {
-        let action = appActions.initApp();
+        let config = {foo: 'bar'};
+        let action = appActions.initApp(config);
 
         expect(action).toEqual({
-          type: appActions.INIT_APP
+          type: appActions.INIT_APP,
+          payload: config
         });
       });
     });

@@ -16,7 +16,9 @@ import 'reselect';
 // RxJS
 import 'rxjs/Observable';
 import 'rxjs/Subject';
+import 'rxjs/add/observable/combineLatest';
 import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/observable/fromEventPattern';
 import 'rxjs/add/observable/never';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/do';
