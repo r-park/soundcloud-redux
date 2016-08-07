@@ -9,7 +9,7 @@ import SearchBar from '../search-bar';
 function AppHeader({handleSearch, search, toggleSearch}) {
   return (
     <header className="header">
-      <div className="g-row">
+      <div className="g-row g-cont">
         <div className="g-col">
           <h1 className="header__title">
             <Link to="/">SoundCloud • React Redux</Link>
@@ -37,7 +37,7 @@ function AppHeader({handleSearch, search, toggleSearch}) {
         </div>
       </div>
 
-      <div className="g-row">
+      <div className="g-row g-cont">
         <div className="g-col">
           <SearchBar
             handleSearch={handleSearch}

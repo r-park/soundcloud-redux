@@ -1,6 +1,8 @@
 import React from 'react';
+import classNames from 'classnames';
 import { Track } from 'src/core/tracks';
 
+import AudioTimeline from '../audio-timeline';
 import FormattedInteger from '../formatted-integer';
 import FormattedTime from '../formatted-time';
 import Icon from '../icon';
@@ -10,6 +12,7 @@ import WaveformTimeline from '../waveform-timeline';
 
 export class TrackCard extends React.Component {
   static propTypes = {
+    isCompact: React.PropTypes.bool.isRequired,
     isPlaying: React.PropTypes.bool.isRequired,
     isSelected: React.PropTypes.bool.isRequired,
     pause: React.PropTypes.func.isRequired,
@@ -19,27 +22,58 @@ export class TrackCard extends React.Component {
 
   shouldComponentUpdate(nextProps) {
     return nextProps.track !== this.props.track ||
-      nextProps.isPlaying !== this.props.isPlaying ||
-      nextProps.isSelected !== this.props.isSelected;
+           nextProps.isPlaying !== this.props.isPlaying ||
+           nextProps.isSelected !== this.props.isSelected ||
+           nextProps.isCompact !== this.props.isCompact;
+  }
+
+  renderLikesCount() {
+    return (
+      <div className="cell">
+        <Icon className="icon--small" name="favorite-border" />
+        <FormattedInteger value={this.props.track.likesCount} />
+      </div>
+    );
+  }
+
+  renderPlaybackCount() {
+    return (
+      <div className="cell">
+        <Icon className="icon--small" name="headset" />
+        <FormattedInteger value={this.props.track.playbackCount} />
+      </div>
+    );
+  }
+
+  renderTimeline() {
+    return (
+      <div className="track-card__timeline">
+        {this.props.isSelected ? <AudioTimeline /> : null}
+      </div>
+    );
   }
 
   render() {
-    const { isPlaying, isSelected, pause, play, track } = this.props;
+    const { isCompact, isPlaying, isSelected, pause, play, track } = this.props;
+
+    const className = classNames('track-card', {
+      'track-card--compact': isCompact,
+      'track-card--full': !isCompact
+    });
 
     return (
-      <article className="track-card">
+      <article className={className}>
         <div className="track-card__image">
           <img src={track.artworkUrl} />
         </div>
 
         <div className="track-card__main">
+          {isCompact ? this.renderTimeline() : null}
+
           <div className="track-card__username">{track.username}</div>
           <h1 className="track-card__title">{track.title}</h1>
 
-          <WaveformTimeline
-            displayProgress={isSelected}
-            url={track.waveformUrl}
-          />
+          {isCompact ? null : <WaveformTimeline displayProgress={isSelected} url={track.waveformUrl} />}
 
           <div className="track-card__actions">
             <div className="cell">
@@ -51,15 +85,8 @@ export class TrackCard extends React.Component {
               <FormattedTime value={track.duration} unit={'ms'} />
             </div>
 
-            <div className="cell">
-              <Icon className="icon--small" name="headset" />
-              <FormattedInteger value={track.playbackCount} />
-            </div>
-
-            <div className="cell">
-              <Icon className="icon--small" name="favorite-border" />
-              <FormattedInteger value={track.likesCount} />
-            </div>
+            {isCompact ? null : this.renderPlaybackCount()}
+            {isCompact ? null : this.renderLikesCount()}
 
             <div className="cell">
               <a href={track.userPermalinkUrl} target="_blank" rel="noopener noreferrer">

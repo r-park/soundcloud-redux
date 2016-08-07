@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
+import classNames from 'classnames';
 import { List } from 'immutable';
-import { infiniteScroll } from 'src/core/browser';
+import { getBrowserMedia, infiniteScroll } from 'src/core/browser';
 import { audio, getPlayerIsPlaying, getPlayerTrackId, playerActions } from 'src/core/player';
 import { getCurrentTracklist, getTracksForCurrentTracklist, tracklistActions } from 'src/core/tracklists';
 
@@ -13,6 +14,7 @@ import TrackCard from '../track-card';
 export class Tracklist extends React.Component {
   static propTypes = {
     displayLoadingIndicator: React.PropTypes.bool.isRequired,
+    isMediaLarge: React.PropTypes.bool.isRequired,
     isPlaying: React.PropTypes.bool.isRequired,
     loadNextTracks: React.PropTypes.func.isRequired,
     pause: React.PropTypes.func.isRequired,
@@ -47,13 +49,22 @@ export class Tracklist extends React.Component {
   }
 
   render() {
-    const { isPlaying, pause, play, selectedTrackId, selectTrack, tracklistId, tracks } = this.props;
+    const { isMediaLarge, isPlaying, pause, play, selectedTrackId, selectTrack, tracklistId, tracks } = this.props;
+
+    const tracklistClassName = classNames('g-row  g-cont tracklist', {
+      'has-line-clamp': '-webkit-line-clamp' in document.body.style
+    });
+
+    const trackCardClassName = classNames('g-col', {
+      'sm-2/4 md-1/3 lg-1/4': !isMediaLarge
+    });
 
     const trackCards = tracks.map((track, index) => {
       let isSelected = track.id === selectedTrackId;
       return (
-        <div className="g-col" key={index}>
+        <div className={trackCardClassName} key={index}>
           <TrackCard
+            isCompact={!isMediaLarge}
             isPlaying={isSelected && isPlaying}
             isSelected={isSelected}
             pause={pause}
@@ -65,7 +76,7 @@ export class Tracklist extends React.Component {
     });
 
     return (
-      <div className="g-row tracklist">
+      <div className={tracklistClassName}>
         {trackCards}
 
         <div className="g-col">
@@ -82,12 +93,14 @@ export class Tracklist extends React.Component {
 //-------------------------------------
 
 const mapStateToProps = createSelector(
+  getBrowserMedia,
   getPlayerIsPlaying,
   getPlayerTrackId,
   getCurrentTracklist,
   getTracksForCurrentTracklist,
-  (isPlaying, playerTrackId, tracklist, tracks) => ({
+  (media, isPlaying, playerTrackId, tracklist, tracks) => ({
     displayLoadingIndicator: tracklist.isPending || tracklist.hasNextPage,
+    isMediaLarge: !!media.large,
     isPlaying,
     pause: audio.pause,
     pauseInfiniteScroll: tracklist.isPending || !tracklist.hasNextPage,

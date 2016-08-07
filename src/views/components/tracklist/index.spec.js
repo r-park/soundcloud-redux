@@ -13,6 +13,7 @@ describe('views', () => {
     beforeEach(() => {
       props = {
         displayLoadingIndicator: false,
+        isMediaLarge: false,
         isPlaying: false,
         loadNextTracks: () => {},
         pause: () => {},
