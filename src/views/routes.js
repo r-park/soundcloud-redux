@@ -1,6 +1,7 @@
 import App from './app';
 import HomePage from './pages/home';
 import SearchPage from './pages/search';
+import UserPage from './pages/user';
 
 
 export const routes = {
@@ -15,6 +16,10 @@ export const routes = {
     {
       path: '/search',
       component: SearchPage
+    },
+    {
+      path: '/users/:id/:resource',
+      component: UserPage
     }
   ]
 };

@@ -1,4 +1,4 @@
-import { API_TRACKS_URL, CLIENT_ID_PARAM, PAGINATION_PARAMS } from 'src/core/constants';
+import { API_TRACKS_URL, API_USERS_URL, CLIENT_ID_PARAM, PAGINATION_PARAMS } from 'src/core/constants';
 import { api, dispatch, requestUrl } from '../api-service';
 
 
@@ -126,6 +126,54 @@ describe('api', () => {
         });
 
         api.fetchSearchResults(queryValue);
+        server.respond();
+      });
+    });
+
+
+    describe('api.fetchUser()', () => {
+      it('should perform GET request with correct url', () => {
+        const userId = 123;
+        const url = `${API_USERS_URL}/${userId}?${CLIENT_ID_PARAM}`;
+
+        server.respondWith('get', url, request => {
+          expect(request.url).toBe(url);
+          return successResponse;
+        });
+
+        api.fetchUser(userId);
+        server.respond();
+      });
+    });
+
+
+    describe('api.fetchUserLikes()', () => {
+      it('should perform GET request with correct url', () => {
+        const userId = 123;
+        const url = `${API_USERS_URL}/${userId}/favorites?${CLIENT_ID_PARAM}&${PAGINATION_PARAMS}`;
+
+        server.respondWith('get', url, request => {
+          expect(request.url).toBe(url);
+          return successResponse;
+        });
+
+        api.fetchUserLikes(userId);
+        server.respond();
+      });
+    });
+
+
+    describe('api.fetchUserTracks()', () => {
+      it('should perform GET request with correct url', () => {
+        const userId = 123;
+        const url = `${API_USERS_URL}/${userId}/tracks?${CLIENT_ID_PARAM}&${PAGINATION_PARAMS}`;
+
+        server.respondWith('get', url, request => {
+          expect(request.url).toBe(url);
+          return successResponse;
+        });
+
+        api.fetchUserTracks(userId);
         server.respond();
       });
     });

@@ -30,14 +30,14 @@ describe('views', () => {
       expect(tracklist.length).toBe(1);
     });
 
-    it('should call props.loadSearchResults on componentWillMount', () => {
+    it('should call props.loadSearchResults() on componentWillMount', () => {
       shallow(<SearchPage {...props} />);
 
       expect(props.loadSearchResults).toHaveBeenCalledTimes(1);
       expect(props.loadSearchResults).toHaveBeenCalledWith(props.query);
     });
 
-    it('should call props.loadSearchResults when props.query changes', () => {
+    it('should call props.loadSearchResults() when props.query changes', () => {
       let wrapper = shallow(<SearchPage {...props} />);
 
       expect(props.loadSearchResults).toHaveBeenCalledTimes(1);
