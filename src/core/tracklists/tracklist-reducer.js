@@ -23,6 +23,7 @@ export function tracklistReducer(state = new Tracklist(), {payload, type}) {
     case tracklistActions.FETCH_TRACKS_PENDING:
       return state.set('isPending', true);
 
+    case tracklistActions.LOAD_FEATURED_TRACKS:
     case searchActions.LOAD_SEARCH_RESULTS:
     case userActions.LOAD_USER_LIKES:
     case userActions.LOAD_USER_TRACKS:

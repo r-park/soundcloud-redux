@@ -1,7 +1,7 @@
 import { takeLatest } from 'redux-saga';
 import { call, fork, select } from 'redux-saga/effects';
 import { fetchUser, fetchUserLikes, fetchUserTracks } from 'src/core/api';
-import { getTracklistById } from 'src/core/tracklists';
+import { getTracklistById, tracklistActions } from 'src/core/tracklists';
 import { userActions } from './actions';
 import { getUserById } from './selectors';
 
@@ -41,7 +41,9 @@ export function* watchLoadUser() {
 }
 
 export function* watchLoadUserLikes() {
-  yield* takeLatest(userActions.LOAD_USER_LIKES, loadUserLikes);
+  yield* takeLatest([
+    userActions.LOAD_USER_LIKES, tracklistActions.LOAD_FEATURED_TRACKS
+  ], loadUserLikes);
 }
 
 export function* watchLoadUserTracks() {

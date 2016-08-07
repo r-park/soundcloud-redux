@@ -24,6 +24,7 @@ export function tracklistsReducer(state = initialState, action) {
         tracklistReducer(state.get(payload.tracklistId), action)
       );
 
+    case tracklistActions.LOAD_FEATURED_TRACKS:
     case searchActions.LOAD_SEARCH_RESULTS:
     case userActions.LOAD_USER_LIKES:
     case userActions.LOAD_USER_TRACKS:
