@@ -12,11 +12,11 @@ describe('views', () => {
 
     beforeEach(() => {
       props = {
-        hasNextPage: false,
-        isPending: false,
+        displayLoadingIndicator: false,
         isPlaying: false,
         loadNextTracks: () => {},
         pause: () => {},
+        pauseInfiniteScroll: false,
         play: () => {},
         selectTrack: () => {},
         selectedTrackId: 1,
@@ -32,6 +32,17 @@ describe('views', () => {
       let trackCards = wrapper.find('TrackCard');
 
       expect(trackCards.length).toBe(2);
+    });
+
+    it('should display LoadingIndicator if props.displayLoadingIndicator is true', () => {
+      let wrapper = shallow(<Tracklist {...props} />);
+
+      expect(wrapper.find('LoadingIndicator').length).toBe(0);
+
+      props.displayLoadingIndicator = true;
+      wrapper.setProps(props);
+
+      expect(wrapper.find('LoadingIndicator').length).toBe(1);
     });
   });
 });

@@ -13,7 +13,7 @@ export const API_TRACKS_URL = `${API_BASE_URL}/tracks`;
 export const CLIENT_ID = process.env.SOUNDCLOUD_CLIENT_ID || 'd02c42795f3bcac39f84eee0ae384b00';
 export const CLIENT_ID_PARAM = `client_id=${CLIENT_ID}`;
 
-export const PAGINATION_LIMIT = 3;
+export const PAGINATION_LIMIT = 60;
 export const PAGINATION_PARAMS = `limit=${PAGINATION_LIMIT}&linked_partitioning=1`;
 
 
@@ -39,7 +39,7 @@ export const PLAYER_STORAGE_KEY = `${APP_NAME}:player`;
 //-------------------------------------
 export const SESSION_TRACKLIST_ID = 'session';
 
-export const TRACKS_PER_PAGE = 3;
+export const TRACKS_PER_PAGE = 12;
 
 
 //=====================================

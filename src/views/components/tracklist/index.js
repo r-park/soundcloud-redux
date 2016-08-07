@@ -2,18 +2,21 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import { List } from 'immutable';
+import { infiniteScroll } from 'src/core/browser';
 import { audio, getPlayerIsPlaying, getPlayerTrackId, playerActions } from 'src/core/player';
 import { getCurrentTracklist, getTracksForCurrentTracklist, tracklistActions } from 'src/core/tracklists';
+
+import LoadingIndicator from '../loading-indicator';
 import TrackCard from '../track-card';
 
 
 export class Tracklist extends React.Component {
   static propTypes = {
-    hasNextPage: React.PropTypes.bool.isRequired,
-    isPending: React.PropTypes.bool.isRequired,
+    displayLoadingIndicator: React.PropTypes.bool.isRequired,
     isPlaying: React.PropTypes.bool.isRequired,
     loadNextTracks: React.PropTypes.func.isRequired,
     pause: React.PropTypes.func.isRequired,
+    pauseInfiniteScroll: React.PropTypes.bool.isRequired,
     play: React.PropTypes.func.isRequired,
     selectTrack: React.PropTypes.func.isRequired,
     selectedTrackId: React.PropTypes.number,
@@ -21,12 +24,26 @@ export class Tracklist extends React.Component {
     tracks: React.PropTypes.instanceOf(List).isRequired
   };
 
-  renderPaginationButton() {
-    return (
-      <div className="g-col">
-        <button onClick={this.props.loadNextTracks} type="button">Next</button>
-      </div>
+  componentDidMount() {
+    infiniteScroll.start(
+      this.props.loadNextTracks,
+      this.props.pauseInfiniteScroll
     );
+  }
+
+  componentWillUpdate(nextProps) {
+    if (nextProps.pauseInfiniteScroll !== this.props.pauseInfiniteScroll) {
+      if (nextProps.pauseInfiniteScroll) {
+        infiniteScroll.pause();
+      }
+      else {
+        infiniteScroll.resume();
+      }
+    }
+  }
+
+  componentWillUnmount() {
+    infiniteScroll.end();
   }
 
   render() {
@@ -51,8 +68,9 @@ export class Tracklist extends React.Component {
       <div className="g-row tracklist">
         {trackCards}
 
-        <div>{this.props.isPending ? <h1>LOADING TRACKS</h1> : null}</div>
-        {this.props.hasNextPage ? this.renderPaginationButton() : null}
+        <div className="g-col">
+          {(this.props.displayLoadingIndicator) ? <LoadingIndicator /> : null}
+        </div>
       </div>
     );
   }
@@ -69,10 +87,10 @@ const mapStateToProps = createSelector(
   getCurrentTracklist,
   getTracksForCurrentTracklist,
   (isPlaying, playerTrackId, tracklist, tracks) => ({
-    hasNextPage: tracklist.hasNextPage,
-    isPending: tracklist.isPending,
+    displayLoadingIndicator: tracklist.isPending || tracklist.hasNextPage,
     isPlaying,
     pause: audio.pause,
+    pauseInfiniteScroll: tracklist.isPending || !tracklist.hasNextPage,
     play: audio.play,
     selectedTrackId: playerTrackId,
     tracklistId: tracklist.id,
