@@ -64,10 +64,11 @@ describe('views', () => {
       expect(TrackCard.prototype.render).toHaveBeenCalledTimes(4);
     });
 
-    it('should display username', () => {
-      let link = getWrapper().find('.track-card__username');
+    it('should display username linking to user-tracks route', () => {
+      let link = getWrapper().find('Link');
       expect(link.length).toBe(1);
-      expect(link.text()).toBe(track.username);
+      expect(link.prop('to')).toBe(`/users/${track.userId}/tracks`);
+      expect(link.shallow().text()).toBe(track.username);
     });
 
     it('should display track title', () => {

@@ -13,6 +13,7 @@ import TrackCard from '../track-card';
 
 export class Tracklist extends React.Component {
   static propTypes = {
+    compactLayout: React.PropTypes.bool,
     displayLoadingIndicator: React.PropTypes.bool.isRequired,
     isMediaLarge: React.PropTypes.bool.isRequired,
     isPlaying: React.PropTypes.bool.isRequired,
@@ -49,14 +50,14 @@ export class Tracklist extends React.Component {
   }
 
   render() {
-    const { isMediaLarge, isPlaying, pause, play, selectedTrackId, selectTrack, tracklistId, tracks } = this.props;
+    const { compactLayout, isMediaLarge, isPlaying, pause, play, selectedTrackId, selectTrack, tracklistId, tracks } = this.props;
 
     const tracklistClassName = classNames('g-row  g-cont tracklist', {
       'has-line-clamp': '-webkit-line-clamp' in document.body.style
     });
 
     const trackCardClassName = classNames('g-col', {
-      'sm-2/4 md-1/3 lg-1/4': !isMediaLarge
+      'sm-2/4 md-1/3 lg-1/4': compactLayout || !isMediaLarge
     });
 
     const trackCards = tracks.map((track, index) => {
@@ -64,7 +65,7 @@ export class Tracklist extends React.Component {
       return (
         <div className={trackCardClassName} key={index}>
           <TrackCard
-            isCompact={!isMediaLarge}
+            isCompact={compactLayout || !isMediaLarge}
             isPlaying={isSelected && isPlaying}
             isSelected={isSelected}
             pause={pause}

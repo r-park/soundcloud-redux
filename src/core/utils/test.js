@@ -39,6 +39,23 @@ export const testUtils = {
     return tracks;
   },
 
+  createUser: (id = 1) => {
+    return {
+      avatar_url: `https://i1.sndcdn.com/avatars-${id}-large.jpg`,
+      city: 'City Name',
+      country: 'Country Name',
+      followers_count: 10000,
+      followings_count: 1000,
+      full_name: 'Full Name',
+      id,
+      permalink_url: 'https://soundcloud.com/user-${id}',
+      playlist_count: 1,
+      public_favorites_count: 10,
+      track_count: 100,
+      username: `user-${id}`
+    };
+  },
+
   getVolumes() {
     return [
       {actual: 0,    input: 0,   display: '0.0'},

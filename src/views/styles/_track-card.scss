@@ -8,7 +8,6 @@
 }
 
 .track-card__username {
-  display: block;
   color: #7d7e7f;
   font-size: rem(13px);
   overflow: hidden;
@@ -179,7 +178,11 @@
 
   .track-card__actions {
     .cell {
-      width: 18%;
+      width: 120px;
+
+      &:first-of-type {
+        width: 140px;
+      }
     }
   }
 }

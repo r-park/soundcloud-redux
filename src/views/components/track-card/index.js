@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import classNames from 'classnames';
 import { Track } from 'src/core/tracks';
 
@@ -70,7 +71,10 @@ export class TrackCard extends React.Component {
         <div className="track-card__main">
           {isCompact ? this.renderTimeline() : null}
 
-          <div className="track-card__username">{track.username}</div>
+          <div className="track-card__username">
+            <Link to={`/users/${track.userId}/tracks`}>{track.username}</Link>
+          </div>
+
           <h1 className="track-card__title">{track.title}</h1>
 
           {isCompact ? null : <WaveformTimeline displayProgress={isSelected} url={track.waveformUrl} />}

@@ -2,6 +2,7 @@ import { browserSagas } from './browser';
 import { playerSagas } from './player';
 import { searchSagas } from './search';
 import { tracklistSagas } from './tracklists';
+import { userSagas } from './users';
 
 
 export default function* sagas() {
@@ -9,6 +10,7 @@ export default function* sagas() {
     ...browserSagas,
     ...playerSagas,
     ...searchSagas,
-    ...tracklistSagas
+    ...tracklistSagas,
+    ...userSagas
   ];
 }

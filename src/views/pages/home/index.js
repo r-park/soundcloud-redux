@@ -1,8 +1,43 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { tracklistActions } from 'src/core/tracklists';
 
+import ContentHeader from '../../components/content-header';
+import Tracklist from '../../components/tracklist';
 
-function HomePage() {
-  return <h1>Home</h1>;
+export class HomePage extends React.Component {
+  static propTypes = {
+    loadFeaturedTracks: React.PropTypes.func.isRequired
+  };
+
+  componentWillMount() {
+    this.props.loadFeaturedTracks();
+  }
+
+  render() {
+    return (
+      <section>
+        <ContentHeader
+          section="Spotlight"
+          title="Featured Tracks"
+        />
+
+        <Tracklist compactLayout={true} />
+      </section>
+    );
+  }
 }
 
-export default HomePage;
+
+//=====================================
+//  CONNECT
+//-------------------------------------
+
+const mapDispatchToProps = {
+  loadFeaturedTracks: tracklistActions.loadFeaturedTracks
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(HomePage);

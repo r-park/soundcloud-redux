@@ -1,3 +1,4 @@
+import { FEATURED_TRACKLIST_ID, FEATURED_TRACKLIST_USER_ID } from 'src/core/constants';
 import { tracklistActions } from '../actions';
 
 
@@ -41,6 +42,21 @@ describe('tracklists', () => {
           type: tracklistActions.FETCH_TRACKS_PENDING,
           payload: {
             tracklistId
+          }
+        });
+      });
+    });
+
+
+    describe('loadFeaturedTracks()', () => {
+      it('should create an action', () => {
+        let action = tracklistActions.loadFeaturedTracks();
+
+        expect(action).toEqual({
+          type: tracklistActions.LOAD_FEATURED_TRACKS,
+          payload: {
+            tracklistId: FEATURED_TRACKLIST_ID,
+            userId: FEATURED_TRACKLIST_USER_ID
           }
         });
       });

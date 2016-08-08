@@ -4,6 +4,7 @@ import { playerReducer, playerTimesReducer } from './player';
 import { searchReducer } from './search';
 import { tracklistsReducer } from './tracklists';
 import { tracksReducer } from './tracks';
+import { usersReducer } from './users';
 
 
 export default combineReducers({
@@ -12,5 +13,6 @@ export default combineReducers({
   playerTimes: playerTimesReducer,
   search: searchReducer,
   tracklists: tracklistsReducer,
-  tracks: tracksReducer
+  tracks: tracksReducer,
+  users: usersReducer
 });

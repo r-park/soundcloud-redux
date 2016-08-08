@@ -1,5 +1,6 @@
 import { call, put } from 'redux-saga/effects';
 import { tracklistRequestActions } from 'src/core/tracklists';
+import { userRequestActions } from 'src/core/users';
 import { api } from './api-service';
 
 
@@ -17,3 +18,6 @@ function* fetchEntities(apiFunction, actions, id, param) {
 
 export const fetchNextTracks = fetchEntities.bind(null, api.fetch, tracklistRequestActions);
 export const fetchSearchResults = fetchEntities.bind(null, api.fetchSearchResults, tracklistRequestActions);
+export const fetchUser = fetchEntities.bind(null, api.fetchUser, userRequestActions);
+export const fetchUserLikes = fetchEntities.bind(null, api.fetchUserLikes, tracklistRequestActions);
+export const fetchUserTracks = fetchEntities.bind(null, api.fetchUserTracks, tracklistRequestActions);

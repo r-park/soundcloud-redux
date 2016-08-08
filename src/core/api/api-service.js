@@ -1,5 +1,5 @@
 import request from 'superagent';
-import { API_TRACKS_URL, CLIENT_ID_PARAM, PAGINATION_PARAMS } from 'src/core/constants';
+import { API_TRACKS_URL, API_USERS_URL, CLIENT_ID_PARAM, PAGINATION_PARAMS } from 'src/core/constants';
 
 
 export const api = {
@@ -12,6 +12,26 @@ export const api = {
       paginate: true,
       query: `q=${query}`,
       url: API_TRACKS_URL
+    });
+  },
+
+  fetchUser(userId) {
+    return dispatch({
+      url: `${API_USERS_URL}/${userId}`
+    });
+  },
+
+  fetchUserLikes(userId) {
+    return dispatch({
+      paginate: true,
+      url: `${API_USERS_URL}/${userId}/favorites`
+    });
+  },
+
+  fetchUserTracks(userId) {
+    return dispatch({
+      paginate: true,
+      url: `${API_USERS_URL}/${userId}/tracks`
     });
   }
 };
