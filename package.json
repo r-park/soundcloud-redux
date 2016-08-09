@@ -31,9 +31,9 @@
     "server:dev": "cross-env NODE_ENV=development webpack-dev-server --progress",
     "start": "npm run server:dev",
     "test": "run-s test:client test:server",
-    "test:client": "cross-env NODE_ENV=test karma start --single-run --coverage",
+    "test:client": "cross-env NODE_ENV=test karma start --single-run",
     "test:server": "ava server/spec.js --verbose",
-    "test:watch": "cross-env NODE_ENV=test karma start --reporters dots",
+    "test:watch": "cross-env NODE_ENV=test karma start",
     "version": "npm run changelog && git add CHANGELOG.md"
   },
   "dependencies": {
@@ -49,6 +49,7 @@
     "babel-core": "~6.13.2",
     "babel-eslint": "~6.1.2",
     "babel-loader": "~6.2.4",
+    "babel-plugin-istanbul": "~1.1.0",
     "babel-plugin-transform-function-bind": "~6.8.0",
     "babel-polyfill": "~6.13.0",
     "babel-preset-es2015": "~6.13.2",
@@ -66,7 +67,6 @@
     "extract-text-webpack-plugin": "~1.0.1",
     "html-webpack-plugin": "~2.22.0",
     "immutable": "~3.8.1",
-    "isparta-loader": "~2.0.0",
     "jasmine-core": "~2.4.1",
     "json-loader": "~0.5.4",
     "karma": "~1.1.2",
@@ -101,7 +101,6 @@
     "supertest": "~2.0.0",
     "webpack": "~1.13.1",
     "webpack-dev-server": "~1.14.1",
-    "webpack-md5-hash": "~0.0.5",
-    "yargs": "~4.8.1"
+    "webpack-md5-hash": "~0.0.5"
   }
 }
