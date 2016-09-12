@@ -1,7 +1,7 @@
 {
   "name": "soundcloud-redux",
   "version": "0.4.0",
-  "description": "soundcloud-redux",
+  "description": "SoundCloud API client with React, Redux, and Redux Saga",
   "homepage": "https://github.com/r-park/soundcloud-redux",
   "repository": {
     "type": "git",
