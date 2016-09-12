@@ -36,7 +36,7 @@ describe('browser', () => {
       });
 
       it('should take eventChannel', () => {
-        let channel = eventChannel(() => {});
+        let channel = eventChannel(() => () => {});
 
         expect(generator.next(channel).value).toEqual(
           take(channel)
