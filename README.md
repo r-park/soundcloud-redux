@@ -6,7 +6,9 @@
 A basic SoundCloud API client built with React, Redux, and Redux Saga. Try the [live demo](https://soundcloud-redux.herokuapp.com).
 
 
-## Stack
+Stack
+-----
+
 - React
 - React Redux
 - React Router
@@ -21,3 +23,26 @@ A basic SoundCloud API client built with React, Redux, and Redux Saga. Try the [
 - Karma
 - Superagent
 - Webpack
+
+
+Quick Start
+-----------
+
+```shell
+$ git clone https://github.com/r-park/soundcloud-redux.git
+$ cd soundcloud-redux
+$ npm install
+$ npm start
+```
+
+
+NPM Commands
+------------
+
+|Command|Description|
+|---|---|
+|npm start|Start webpack development server @ **localhost:3000**|
+|npm run build|Build production bundles to **./target** directory|
+|npm run server|Start express server @ **localhost:3000** to serve built artifacts from **./target** directory|
+|npm test|Run tests and generate coverage report to **./coverage** directory|
+|npm run test:watch|Run tests; watch for changes to re-run tests|
