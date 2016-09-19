@@ -1,5 +1,5 @@
 import { call, put } from 'redux-saga/effects';
-import { tracklistRequestActions } from 'src/core/tracklists';
+import { tracklistRequestActions } from 'src/core/tracklists/actions';
 import { userRequestActions } from 'src/core/users';
 import { api } from './api-service';
 

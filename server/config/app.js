@@ -7,7 +7,7 @@ const paths = require('./paths');
 
 module.exports = app => {
   // server address
-  app.set('host', process.env.HOST || 'localhost');
+  app.set('host', process.env.HOST || '0.0.0.0');
   app.set('port', process.env.PORT || 3000);
 
   // HTTP headers

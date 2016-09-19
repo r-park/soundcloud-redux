@@ -1,9 +1,12 @@
+import 'babel-polyfill';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import { browserHistory } from 'react-router';
 
 import './views/styles/styles.scss';
+
 import { appActions } from './core/app';
 import configureStore from './core/store';
 import mediaQueryRules from './views/media';

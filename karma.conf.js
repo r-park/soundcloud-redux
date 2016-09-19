@@ -3,7 +3,7 @@ module.exports = config => {
     frameworks: ['jasmine'],
 
     files: [
-      'node_modules/sinon/pkg/sinon-server-1.17.5.js',
+      'node_modules/sinon/pkg/sinon-server-1.17.6.js',
       'karma.entry.js'
     ],
 
