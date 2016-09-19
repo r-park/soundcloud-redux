@@ -1,13 +1,18 @@
-const autoprefixer = require('autoprefixer');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
-const webpack = require('webpack');
+
+const autoprefixer = require('autoprefixer');
+const DefinePlugin = require('webpack/lib/DefinePlugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HotModuleReplacementPlugin = require('webpack/lib/HotModuleReplacementPlugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
+const ProgressPlugin = require('webpack/lib/ProgressPlugin');
+const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
 const WebpackMd5Hash = require('webpack-md5-hash');
 
 
 //=========================================================
-//  ENVIRONMENT VARS
+//  VARS
 //---------------------------------------------------------
 const NODE_ENV = process.env.NODE_ENV;
 
@@ -15,8 +20,8 @@ const ENV_DEVELOPMENT = NODE_ENV === 'development';
 const ENV_PRODUCTION = NODE_ENV === 'production';
 const ENV_TEST = NODE_ENV === 'test';
 
-const HOST = process.env.HOST || 'localhost';
-const PORT = process.env.PORT || 3000;
+const HOST = '0.0.0.0';
+const PORT = 3000;
 
 
 //=========================================================
@@ -32,25 +37,25 @@ const loaders = {
 //=========================================================
 //  CONFIG
 //---------------------------------------------------------
-const config = {};
-module.exports = config;
-
+const config = module.exports = {};
 
 config.resolve = {
-  extensions: ['', '.js', '.json'],
-  modulesDirectories: ['node_modules'],
-  root: path.resolve('.')
+  extensions: ['.js', '.json'],
+  modules: [
+    path.resolve('.'),
+    'node_modules'
+  ]
 };
 
 config.plugins = [
-  new webpack.DefinePlugin({
+  new DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
     'process.env.SOUNDCLOUD_CLIENT_ID': JSON.stringify(process.env.SOUNDCLOUD_CLIENT_ID)
   })
 ];
 
 config.postcss = [
-  autoprefixer({ browsers: ['last 3 versions'] })
+  autoprefixer({browsers: ['last 3 versions']})
 ];
 
 config.sassLoader = {
@@ -92,10 +97,8 @@ if (ENV_DEVELOPMENT) {
   config.devtool = 'cheap-module-source-map';
 
   config.entry.main.unshift(
-    'babel-polyfill',
-    `webpack-dev-server/client?http://${HOST}:${PORT}`,
-    'webpack/hot/only-dev-server',
-    'react-hot-loader/patch'
+    'react-hot-loader/patch',
+    'webpack/hot/only-dev-server'
   );
 
   config.module = {
@@ -106,7 +109,8 @@ if (ENV_DEVELOPMENT) {
   };
 
   config.plugins.push(
-    new webpack.HotModuleReplacementPlugin()
+    new HotModuleReplacementPlugin(),
+    new ProgressPlugin()
   );
 
   config.devServer = {
@@ -115,7 +119,6 @@ if (ENV_DEVELOPMENT) {
     host: HOST,
     hot: true,
     port: PORT,
-    publicPath: config.output.publicPath,
     stats: {
       cached: true,
       cachedAssets: true,
@@ -137,8 +140,6 @@ if (ENV_DEVELOPMENT) {
 if (ENV_PRODUCTION) {
   config.devtool = 'source-map';
 
-  config.entry.vendor = './src/vendor.js';
-
   config.output.filename = '[name].[chunkhash].js';
 
   config.module = {
@@ -149,15 +150,16 @@ if (ENV_PRODUCTION) {
   };
 
   config.plugins.push(
+    new LoaderOptionsPlugin({
+      debug: false,
+      minimize: true
+    }),
     new WebpackMd5Hash(),
     new ExtractTextPlugin('styles.[contenthash].css'),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: Infinity
-    }),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      mangle: true,
+    new UglifyJsPlugin({
+      mangle: {
+        screw_ie8: true  // eslint-disable-line camelcase
+      },
       compress: {
         dead_code: true, // eslint-disable-line camelcase
         screw_ie8: true, // eslint-disable-line camelcase

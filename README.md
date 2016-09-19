@@ -10,6 +10,7 @@ Stack
 -----
 
 - React
+- React Hot Loader `3.0.0-beta.4`
 - React Redux
 - React Router
 - Redux Saga
@@ -22,7 +23,8 @@ Stack
 - Heroku
 - Karma
 - Superagent
-- Webpack
+- Webpack `2.1.0-beta.22`
+- Webpack Dev Server `2.1.0-beta.4`
 
 
 Quick Start
@@ -45,4 +47,4 @@ NPM Commands
 |npm run build|Build production bundles to **./target** directory|
 |npm run server|Start express server @ **localhost:3000** to serve built artifacts from **./target** directory|
 |npm test|Run tests and generate coverage report to **./coverage** directory|
-|npm run test:watch|Run tests; watch for changes to re-run tests|
+|npm run test:watch|Run tests; watch for changes and re-run tests|
