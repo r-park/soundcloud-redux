@@ -12,7 +12,7 @@ test:
 
 deployment:
   dev:
-    branch: /^dev.*/
+    branch: /^(chore|dev|fix).*/
     commands:
       - git push -f git@heroku.com:${HEROKU_APP_DEV}.git ${CIRCLE_BRANCH}:master
 
