@@ -5,12 +5,14 @@
 
 A basic SoundCloud API client built with React, Redux, and Redux Saga. Try the [live demo](https://soundcloud-redux.herokuapp.com).
 
+![screenshot](http://i.imgur.com/nylCI4T.png)
+
 
 Stack
 -----
 
 - React
-- React Hot Loader `3.0.0-beta.4`
+- React Hot Loader `3.0.0-beta.5`
 - React Redux
 - React Router
 - Redux Saga
@@ -23,7 +25,7 @@ Stack
 - Heroku
 - Karma
 - Superagent
-- Webpack `2.1.0-beta.22`
+- Webpack `2.1.0-beta.25`
 - Webpack Dev Server `2.1.0-beta.4`
 
 
