@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import classNames from 'classnames';
@@ -7,8 +8,8 @@ import { audio, getPlayerTimes, PlayerTimesState } from 'src/core/player';
 
 export class AudioTimeline extends React.Component {
   static propTypes = {
-    seek: React.PropTypes.func.isRequired,
-    times: React.PropTypes.instanceOf(PlayerTimesState).isRequired
+    seek: PropTypes.func.isRequired,
+    times: PropTypes.instanceOf(PlayerTimesState).isRequired
   };
 
   constructor() {

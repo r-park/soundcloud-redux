@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
 import { Track } from 'src/core/tracks';
 
 import AudioTimeline from '../audio-timeline';
@@ -13,12 +14,12 @@ import WaveformTimeline from '../waveform-timeline';
 
 export class TrackCard extends React.Component {
   static propTypes = {
-    isCompact: React.PropTypes.bool.isRequired,
-    isPlaying: React.PropTypes.bool.isRequired,
-    isSelected: React.PropTypes.bool.isRequired,
-    pause: React.PropTypes.func.isRequired,
-    play: React.PropTypes.func.isRequired,
-    track: React.PropTypes.instanceOf(Track).isRequired
+    isCompact: PropTypes.bool.isRequired,
+    isPlaying: PropTypes.bool.isRequired,
+    isSelected: PropTypes.bool.isRequired,
+    pause: PropTypes.func.isRequired,
+    play: PropTypes.func.isRequired,
+    track: PropTypes.instanceOf(Track).isRequired
   };
 
   shouldComponentUpdate(nextProps) {

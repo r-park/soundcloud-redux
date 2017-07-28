@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 
 function ContentHeader({section, title}) {
@@ -15,8 +16,8 @@ function ContentHeader({section, title}) {
 }
 
 ContentHeader.propTypes = {
-  section: React.PropTypes.string.isRequired,
-  title: React.PropTypes.string.isRequired
+  section: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired
 };
 
 export default ContentHeader;

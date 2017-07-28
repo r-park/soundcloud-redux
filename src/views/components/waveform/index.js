@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import request from 'superagent';
 
 
 class Waveform extends React.Component {
   static propTypes = {
-    onReady: React.PropTypes.func.isRequired,
-    url: React.PropTypes.string.isRequired
+    onReady: PropTypes.func.isRequired,
+    url: PropTypes.string.isRequired
   };
 
   componentDidMount() {

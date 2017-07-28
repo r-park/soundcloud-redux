@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 
 function FormattedTime({value = 0, unit}) {
@@ -24,8 +25,8 @@ function FormattedTime({value = 0, unit}) {
 }
 
 FormattedTime.propTypes = {
-  unit: React.PropTypes.string,
-  value: React.PropTypes.number
+  unit: PropTypes.string,
+  value: PropTypes.number
 };
 
 export default FormattedTime;

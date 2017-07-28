@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
 
 import AudioTimeline from '../audio-timeline';
 import Waveform from '../waveform';
@@ -7,8 +8,8 @@ import Waveform from '../waveform';
 
 class WaveformTimeline extends React.Component {
   static propTypes = {
-    displayProgress: React.PropTypes.bool.isRequired,
-    url: React.PropTypes.string.isRequired
+    displayProgress: PropTypes.bool.isRequired,
+    url: PropTypes.string.isRequired
   };
 
   constructor() {

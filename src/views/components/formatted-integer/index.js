@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 
 const REPLACER_PATTERN = /(.)(?=(\d{3})+$)/g;
@@ -10,7 +11,7 @@ function FormattedInteger({value}) {
 }
 
 FormattedInteger.propTypes = {
-  value: React.PropTypes.number.isRequired
+  value: PropTypes.number.isRequired
 };
 
 export default FormattedInteger;

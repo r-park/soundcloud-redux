@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import { getCurrentUser, User, userActions } from 'src/core/users';
@@ -9,14 +10,14 @@ import UserCard from '../../components/user-card';
 
 export class UserPage extends React.Component {
   static propTypes = {
-    loadUser: React.PropTypes.func.isRequired,
-    loadUserLikes: React.PropTypes.func.isRequired,
-    loadUserTracks: React.PropTypes.func.isRequired,
-    params: React.PropTypes.shape({
-      id: React.PropTypes.string.isRequired,
-      resource: React.PropTypes.string.isRequired
+    loadUser: PropTypes.func.isRequired,
+    loadUserLikes: PropTypes.func.isRequired,
+    loadUserTracks: PropTypes.func.isRequired,
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      resource: PropTypes.string.isRequired
     }),
-    user: React.PropTypes.instanceOf(User)
+    user: PropTypes.instanceOf(User)
   };
 
   componentWillMount() {

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import Icon from '../icon';
@@ -50,9 +51,9 @@ function AppHeader({handleSearch, search, toggleSearch}) {
 }
 
 AppHeader.propTypes = {
-  handleSearch: React.PropTypes.func.isRequired,
-  search: React.PropTypes.object.isRequired,
-  toggleSearch: React.PropTypes.func.isRequired
+  handleSearch: PropTypes.func.isRequired,
+  search: PropTypes.object.isRequired,
+  toggleSearch: PropTypes.func.isRequired
 };
 
 export default AppHeader;

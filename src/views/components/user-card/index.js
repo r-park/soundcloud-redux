@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { User } from 'src/core/users';
 
@@ -40,7 +41,7 @@ function UserCard({user}) {
 }
 
 UserCard.propTypes = {
-  user: React.PropTypes.instanceOf(User).isRequired
+  user: PropTypes.instanceOf(User).isRequired
 };
 
 export default UserCard;

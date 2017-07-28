@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
 
 
 function Icon({className, name}) {
@@ -11,8 +12,8 @@ function Icon({className, name}) {
 }
 
 Icon.propTypes = {
-  className: React.PropTypes.string,
-  name: React.PropTypes.string.isRequired
+  className: PropTypes.string,
+  name: PropTypes.string.isRequired
 };
 
 export default Icon;

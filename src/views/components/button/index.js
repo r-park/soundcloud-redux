@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
 
 
 function Button({children, className, label, onClick, type = 'button'}) {
@@ -15,11 +16,11 @@ function Button({children, className, label, onClick, type = 'button'}) {
 }
 
 Button.propTypes = {
-  children: React.PropTypes.node,
-  className: React.PropTypes.string,
-  label: React.PropTypes.string,
-  onClick: React.PropTypes.func,
-  type: React.PropTypes.oneOf(['button', 'reset', 'submit'])
+  children: PropTypes.node,
+  className: PropTypes.string,
+  label: PropTypes.string,
+  onClick: PropTypes.func,
+  type: PropTypes.oneOf(['button', 'reset', 'submit'])
 };
 
 export default Button;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { searchActions } from 'src/core/search';
 
@@ -8,8 +9,8 @@ import Tracklist from '../../components/tracklist';
 
 export class SearchPage extends React.Component {
   static propTypes = {
-    loadSearchResults: React.PropTypes.func.isRequired,
-    query: React.PropTypes.string.isRequired
+    loadSearchResults: PropTypes.func.isRequired,
+    query: PropTypes.string.isRequired
   };
 
   componentWillMount() {

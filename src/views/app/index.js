@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Route, withRouter } from 'react-router-dom';
 import { createSelector } from 'reselect';
@@ -33,10 +34,10 @@ export function App({handleSearch, search, toggleSearch}) {
 }
 
 App.propTypes = {
-  children: React.PropTypes.element,
-  handleSearch: React.PropTypes.func.isRequired,
-  search: React.PropTypes.object.isRequired,
-  toggleSearch: React.PropTypes.func.isRequired
+  children: PropTypes.element,
+  handleSearch: PropTypes.func.isRequired,
+  search: PropTypes.object.isRequired,
+  toggleSearch: PropTypes.func.isRequired
 };
 
 

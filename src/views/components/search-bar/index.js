@@ -1,11 +1,12 @@
-import classNames from 'classnames';
 import React from 'react';
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
 
 
 class SearchBar extends React.Component {
   static propTypes = {
-    handleSearch: React.PropTypes.func.isRequired,
-    search: React.PropTypes.object.isRequired
+    handleSearch: PropTypes.func.isRequired,
+    search: PropTypes.object.isRequired
   };
 
   constructor() {

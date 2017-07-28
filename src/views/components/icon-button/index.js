@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
 
 import Button from '../button';
 import Icon from '../icon';
@@ -18,11 +19,11 @@ function IconButton({className, icon, label, onClick, type = 'button'}) {
 }
 
 IconButton.propTypes = {
-  className: React.PropTypes.string,
-  icon: React.PropTypes.string.isRequired,
-  label: React.PropTypes.string.isRequired,
-  onClick: React.PropTypes.func,
-  type: React.PropTypes.oneOf(['button', 'reset', 'submit'])
+  className: PropTypes.string,
+  icon: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
+  type: PropTypes.oneOf(['button', 'reset', 'submit'])
 };
 
 export default IconButton;

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import classNames from 'classnames';
 import { List } from 'immutable';
+import PropTypes from 'prop-types';
 import { getBrowserMedia, infiniteScroll } from 'src/core/browser';
 import { audio, getPlayerIsPlaying, getPlayerTrackId, playerActions } from 'src/core/player';
 import { getCurrentTracklist, getTracksForCurrentTracklist, tracklistActions } from 'src/core/tracklists';
@@ -13,18 +14,18 @@ import TrackCard from '../track-card';
 
 export class Tracklist extends React.Component {
   static propTypes = {
-    compactLayout: React.PropTypes.bool,
-    displayLoadingIndicator: React.PropTypes.bool.isRequired,
-    isMediaLarge: React.PropTypes.bool.isRequired,
-    isPlaying: React.PropTypes.bool.isRequired,
-    loadNextTracks: React.PropTypes.func.isRequired,
-    pause: React.PropTypes.func.isRequired,
-    pauseInfiniteScroll: React.PropTypes.bool.isRequired,
-    play: React.PropTypes.func.isRequired,
-    selectTrack: React.PropTypes.func.isRequired,
-    selectedTrackId: React.PropTypes.number,
-    tracklistId: React.PropTypes.string.isRequired,
-    tracks: React.PropTypes.instanceOf(List).isRequired
+    compactLayout: PropTypes.bool,
+    displayLoadingIndicator: PropTypes.bool.isRequired,
+    isMediaLarge: PropTypes.bool.isRequired,
+    isPlaying: PropTypes.bool.isRequired,
+    loadNextTracks: PropTypes.func.isRequired,
+    pause: PropTypes.func.isRequired,
+    pauseInfiniteScroll: PropTypes.bool.isRequired,
+    play: PropTypes.func.isRequired,
+    selectTrack: PropTypes.func.isRequired,
+    selectedTrackId: PropTypes.number,
+    tracklistId: PropTypes.string.isRequired,
+    tracks: PropTypes.instanceOf(List).isRequired
   };
 
   componentDidMount() {

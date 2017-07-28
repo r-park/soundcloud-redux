@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 
 function FormattedVolume({value = 0}) {
@@ -15,7 +16,7 @@ function FormattedVolume({value = 0}) {
 }
 
 FormattedVolume.propTypes = {
-  value: React.PropTypes.number
+  value: PropTypes.number
 };
 
 export default FormattedVolume;

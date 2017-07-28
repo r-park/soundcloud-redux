@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { audio, playerActions, getPlayer, getPlayerTrack, getPlayerTracklistCursor } from 'src/core/player';
 import { Track } from 'src/core/tracks';
@@ -78,15 +79,15 @@ export function Player({
 }
 
 Player.propTypes = {
-  decreaseVolume: React.PropTypes.func.isRequired,
-  increaseVolume: React.PropTypes.func.isRequired,
-  isPlaying: React.PropTypes.bool.isRequired,
-  nextTrack: React.PropTypes.func,
-  pause: React.PropTypes.func.isRequired,
-  play: React.PropTypes.func.isRequired,
-  previousTrack: React.PropTypes.func,
-  track: React.PropTypes.instanceOf(Track),
-  volume: React.PropTypes.number.isRequired
+  decreaseVolume: PropTypes.func.isRequired,
+  increaseVolume: PropTypes.func.isRequired,
+  isPlaying: PropTypes.bool.isRequired,
+  nextTrack: PropTypes.func,
+  pause: PropTypes.func.isRequired,
+  play: PropTypes.func.isRequired,
+  previousTrack: PropTypes.func,
+  track: PropTypes.instanceOf(Track),
+  volume: PropTypes.number.isRequired
 };
 
 
