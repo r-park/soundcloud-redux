@@ -13,7 +13,7 @@ export class AudioTimeline extends React.Component {
 
   constructor() {
     super(...arguments);
-    this.handleClick = ::this.handleClick;
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick(event) {

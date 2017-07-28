@@ -14,7 +14,7 @@ class WaveformTimeline extends React.Component {
   constructor() {
     super(...arguments);
     this.state = {isReady: false};
-    this.ready = ::this.ready;
+    this.ready = this.ready.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {

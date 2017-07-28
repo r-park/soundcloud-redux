@@ -10,7 +10,7 @@ class SearchBar extends React.Component {
 
   constructor() {
     super(...arguments);
-    this.handleSubmit = ::this.handleSubmit;
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
