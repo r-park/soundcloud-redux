@@ -1,10 +1,11 @@
-/* eslint-disable no-constant-condition */
-import { browserHistory as history } from 'react-router';
-import { takeLatest } from 'redux-saga';
-import { call, fork, select, take } from 'redux-saga/effects';
+import createHistory from 'history/createBrowserHistory';
+import { call, fork, select, take, takeLatest } from 'redux-saga/effects';
 import { fetchSearchResults } from 'src/core/api';
 import { getTracklistById } from 'src/core/tracklists';
 import { searchActions } from './actions';
+
+
+const history = createHistory();
 
 
 export function* loadSearchResults({payload}) {
@@ -21,7 +22,7 @@ export function* loadSearchResults({payload}) {
 //-------------------------------------
 
 export function* watchLoadSearchResults() {
-  yield* takeLatest(searchActions.LOAD_SEARCH_RESULTS, loadSearchResults);
+  yield takeLatest(searchActions.LOAD_SEARCH_RESULTS, loadSearchResults);
 }
 
 export function* watchNavigateToSearch() {

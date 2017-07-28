@@ -1,5 +1,4 @@
-import { takeLatest } from 'redux-saga';
-import { call, fork, put, select } from 'redux-saga/effects';
+import { call, fork, put, select, takeLatest } from 'redux-saga/effects';
 import { fetchNextTracks } from 'src/core/api';
 import { tracklistActions } from './actions';
 import { getCurrentTracklist } from './selectors';
@@ -21,7 +20,7 @@ export function* loadNextTracks() {
 //-------------------------------------
 
 export function* watchLoadNextTracks() {
-  yield* takeLatest(tracklistActions.LOAD_NEXT_TRACKS, loadNextTracks);
+  yield takeLatest(tracklistActions.LOAD_NEXT_TRACKS, loadNextTracks);
 }
 
 
