@@ -1,13 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Route, withRouter } from 'react-router-dom';
 import { createSelector } from 'reselect';
 import { getSearch, searchActions } from 'src/core/search';
 
 import AppHeader from '../components/app-header';
 import Player from '../components/player';
 
+import HomePage from '../pages/home';
+import SearchPage from '../pages/search';
+import UserPage from '../pages/user';
 
-export function App({children, handleSearch, search, toggleSearch}) {
+
+export function App({handleSearch, search, toggleSearch}) {
   return (
     <div>
       <AppHeader
@@ -17,7 +22,9 @@ export function App({children, handleSearch, search, toggleSearch}) {
       />
 
       <main className="main">
-        {children}
+        <Route exact path="/" component={HomePage}/>
+        <Route path="/search" component={SearchPage}/>
+        <Route path="/users/:id/:resource" component={UserPage}/>
       </main>
 
       <Player />
@@ -49,7 +56,9 @@ const mapDispatchToProps = {
   toggleSearch: searchActions.toggleSearchField
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(App)
+);
