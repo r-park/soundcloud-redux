@@ -24,13 +24,13 @@ export class UserPage extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (nextProps.params.resource !== this.props.params.resource) {
-      this.loadUser(nextProps.params);
+    if (nextProps.match.params.resource !== this.props.match.params.resource) {
+      this.loadUser(nextProps.match.params);
     }
   }
 
   loadUser(params) {
-    params = params || this.props.params;
+    params = params || this.props.match.params;
 
     this.props.loadUser(params.id);
 
