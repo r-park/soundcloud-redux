@@ -13,7 +13,7 @@ module.exports = app => {
   // HTTP headers
   app.disable('x-powered-by');
   app.use(helmet.frameguard({action: 'deny'}));
-  app.use(helmet.hsts({force: true, maxAge: 7776000000})); // 90 days
+  app.use(helmet.hsts({force: true, maxAge: 7776000})); // 90 days
   app.use(helmet.noSniff());
   app.use(helmet.xssFilter());
   app.use(helmet.ieNoOpen());

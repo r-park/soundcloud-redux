@@ -17,17 +17,20 @@
     "node": ">=8.2"
   },
   "scripts": {
-    "build": "run-s build.css build.js",
-    "build.css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
-    "build.js": "cross-env NODE_PATH=. react-scripts build",
+    "build": "run-s build:css build:js",
+    "build:css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
+    "build:js": "cross-env NODE_PATH=. react-scripts build",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
     "eject": "react-scripts eject",
     "heroku-postbuild": "npm run build",
-    "start": "run-p start.css start.js",
-    "start.css": "npm run build.css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
-    "start.js": "cross-env NODE_PATH=. react-scripts start",
+    "pretest:server": "npm run build",
+    "server": "cross-env NODE_ENV=development nodemon -w 'server/**/*.*' server/main.js",
+    "start": "run-p start:css start:js",
+    "start:css": "npm run build:css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
+    "start:js": "cross-env NODE_PATH=. react-scripts start",
     "test": "cross-env NODE_PATH=. react-scripts test --env=jsdom",
-    "test.ci": "cross-env CI=true NODE_PATH=. react-scripts test --env=jsdom",
+    "test:ci": "cross-env CI=true NODE_PATH=. react-scripts test --env=jsdom",
+    "test:server": "ava server/spec.js --verbose",
     "version": "npm run changelog && git add CHANGELOG.md"
   },
   "dependencies": {

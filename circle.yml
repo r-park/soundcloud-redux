@@ -9,7 +9,8 @@ dependencies:
 test:
   override:
     - npm run build
-    - npm test -- --coverage
+    - npm test:ci -- --coverage
+    - npm test:server
   post:
     - mv ./coverage ${CIRCLE_ARTIFACTS}
 

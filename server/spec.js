@@ -33,7 +33,7 @@ test.cb('server should NOT redirect http to https (development)', t => {
 test.cb('server should include security headers in response', t => {
   request(getApp())
     .get('/')
-    .expect('Strict-Transport-Security', 'max-age=7776000')
+    .expect('Strict-Transport-Security', 'max-age=7776000; includeSubDomains')
     .expect('X-Content-Type-Options', 'nosniff')
     .expect('X-Download-Options', 'noopen')
     .expect('X-Frame-Options', 'DENY')
