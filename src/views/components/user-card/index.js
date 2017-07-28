@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { User } from 'src/core/users';
 
 import FormattedInteger from '../formatted-integer';
@@ -17,12 +17,12 @@ function UserCard({user}) {
 
       <div className="g-row g-cont user-stats">
         <div className="g-col xs-1/2 sm-1/4">
-          <Link activeClassName="active" className="user-stats__label" to={`/users/${user.id}/tracks`}>Tracks</Link>
+          <NavLink className="user-stats__label" to={`/users/${user.id}/tracks`}>Tracks</NavLink>
           <div className="user-stats__value"><FormattedInteger value={user.trackCount} /></div>
         </div>
 
         <div className="g-col xs-1/2 sm-1/4">
-          <Link activeClassName="active" className="user-stats__label" to={`/users/${user.id}/likes`}>Likes</Link>
+          <NavLink className="user-stats__label" to={`/users/${user.id}/likes`}>Likes</NavLink>
           <div className="user-stats__value"><FormattedInteger value={user.likesCount} /></div>
         </div>
 
