@@ -3,9 +3,10 @@ import './views/styles/styles.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 
 import { appActions } from './core/app';
+import history from './core/history';
 import configureStore from './core/store';
 import mediaQueryRules from './views/media';
 import App from './views/app';
@@ -18,11 +19,11 @@ const store = configureStore();
 function render(Component) {
   ReactDOM.render(
     <Provider store={store}>
-      <BrowserRouter>
+      <Router history={history}>
         <div>
           <Component/>
         </div>
-      </BrowserRouter>
+      </Router>
     </Provider>,
     rootElement
   );

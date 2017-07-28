@@ -1,11 +1,8 @@
-import createHistory from 'history/createBrowserHistory';
 import { call, fork, select, take, takeLatest } from 'redux-saga/effects';
 import { fetchSearchResults } from 'src/core/api';
+import history from 'src/core/history';
 import { getTracklistById } from 'src/core/tracklists';
 import { searchActions } from './actions';
-
-
-const history = createHistory();
 
 
 export function* loadSearchResults({payload}) {
@@ -28,7 +25,7 @@ export function* watchLoadSearchResults() {
 export function* watchNavigateToSearch() {
   while (true) {
     const { payload } = yield take(searchActions.NAVIGATE_TO_SEARCH);
-    yield history.push(payload.pathname);
+    yield history.push(payload);
   }
 }
 

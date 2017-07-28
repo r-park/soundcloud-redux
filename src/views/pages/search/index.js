@@ -41,9 +41,11 @@ export class SearchPage extends React.Component {
 //  CONNECT
 //-------------------------------------
 
-const mapStateToProps = (state, props) => ({
-  query: props.location.query.q
-});
+const mapStateToProps = (state, props) => {
+  return {
+    query: new URLSearchParams(props.location.search).get('q')
+  };
+};
 
 const mapDispatchToProps = {
   loadSearchResults: searchActions.loadSearchResults

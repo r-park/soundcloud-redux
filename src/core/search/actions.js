@@ -18,7 +18,8 @@ export const searchActions = {
   navigateToSearch: query => ({
     type: searchActions.NAVIGATE_TO_SEARCH,
     payload: {
-      pathname: `/search?q=${query}`
+      pathname: `/search`,
+      search: `?q=${query}`
     }
   }),
 
