@@ -6,6 +6,7 @@ import { em, getMedia, mediaQuery } from '../media-query/media-query';
 describe('browser', () => {
   describe('mediaQuery', () => {
     let mediaQueryLists;
+    let unsubscribe;
 
     beforeAll(() => {
       mediaQueryLists = [];
@@ -17,8 +18,13 @@ describe('browser', () => {
       });
     });
 
-    afterEach(() => {
+    beforeEach(() => {
       mediaQueryLists = [];
+      unsubscribe = null;
+    });
+
+    afterEach(() => {
+      if (unsubscribe) unsubscribe();
     });
 
 
@@ -29,7 +35,7 @@ describe('browser', () => {
         landscape: false
       });
 
-      mediaQuery.matches(getMediaQueryRules(), results => {
+      unsubscribe = mediaQuery.matches(getMediaQueryRules(), results => {
         expect(results).toEqual(expectedAction);
       });
     });
@@ -45,7 +51,7 @@ describe('browser', () => {
           landscape: false
         });
 
-        mediaQuery.matches(getMediaQueryRules(), results => {
+        unsubscribe = mediaQuery.matches(getMediaQueryRules(), results => {
           count++;
           finalResults = results;
         });
@@ -53,13 +59,13 @@ describe('browser', () => {
         setTimeout(() => {
           mediaQueryLists[1].matches = true;
           mediaQueryLists.forEach(mql => mql.dispatch());
-        }, 20);
+        }, 50);
 
         setTimeout(() => {
           expect(count).toBe(2); // 1 for initial results, plus 1 for manual dispatch
           expect(finalResults).toEqual(expectedAction);
           resolve();
-        }, 40);
+        }, 200);
       });
     });
 
@@ -67,23 +73,23 @@ describe('browser', () => {
       return new Promise(resolve => {
         let count = 0;
 
-        const unsubscribe = mediaQuery.matches(getMediaQueryRules(), () => {
+        unsubscribe = mediaQuery.matches(getMediaQueryRules(), () => {
           count++; // count === 1 for initial results
         });
 
         setTimeout(() => {
           mediaQueryLists.forEach(mql => mql.dispatch()); // count === 2
-        }, 10);
+        }, 50);
 
         setTimeout(() => {
           unsubscribe();
           mediaQueryLists.forEach(mql => mql.dispatch()); // count === 3
-        }, 20);
+        }, 200);
 
         setTimeout(() => {
           expect(count).toBe(2);
           resolve();
-        }, 30);
+        }, 350);
       });
     });
 
