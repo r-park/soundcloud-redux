@@ -11,22 +11,17 @@ A basic SoundCloud API client built with React, Redux, and Redux Saga. Try the [
 Stack
 -----
 
-- React
-- React Hot Loader `3.0.0-beta.5`
-- React Redux
-- React Router
-- Redux Saga
+- React (Create-React-App)
+- React-Redux
+- React-Router
+- Redux-Saga
 - RxJS
 - Immutable
 - Ava
-- Babel
 - Circle CI
 - Express
 - Heroku
-- Karma
 - Superagent
-- Webpack `2.1.0-beta.25`
-- Webpack Dev Server `2.1.0-beta.4`
 
 
 Quick Start
@@ -46,7 +41,5 @@ NPM Commands
 |Command|Description|
 |---|---|
 |npm start|Start webpack development server @ **localhost:3000**|
-|npm run build|Build production bundles to **./target** directory|
-|npm run server|Start express server @ **localhost:3000** to serve built artifacts from **./target** directory|
-|npm test|Run tests and generate coverage report to **./coverage** directory|
-|npm run test:watch|Run tests; watch for changes and re-run tests|
+|npm run build|Build production bundles to **./build** directory|
+|npm run server|Start express server @ **localhost:3000** to serve build artifacts from **./build** directory|

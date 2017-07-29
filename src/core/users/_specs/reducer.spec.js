@@ -1,5 +1,5 @@
 import { tracklistActions } from 'src/core/tracklists';
-import { testUtils } from 'src/core/utils/test';
+import { testUtils } from 'src/core/utils/test-utils';
 import { userActions } from '../actions';
 import { usersReducer } from '../reducer';
 

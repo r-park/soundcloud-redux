@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import { TRACKS_PER_PAGE } from 'src/core/constants';
-import { getTracks } from 'src/core/tracks';
+import { getTracks } from 'src/core/tracks/selectors';
 
 
 export function getTracklists(state) {

@@ -1,4 +1,3 @@
-/* eslint-disable no-constant-condition */
 import { eventChannel } from 'redux-saga';
 import { call, fork, put, select, take } from 'redux-saga/effects';
 import { appActions } from 'src/core/app';

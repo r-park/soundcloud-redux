@@ -1,4 +1,5 @@
 import 'rxjs/add/observable/interval';
+import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/take';
 
 import { Observable } from 'rxjs/Observable';

@@ -2,7 +2,7 @@ import { List, Map } from 'immutable';
 import { combineReducers, createStore } from 'redux';
 import { TRACKS_PER_PAGE } from 'src/core/constants';
 import { Track, tracksReducer } from 'src/core/tracks';
-import { testUtils } from 'src/core/utils/test';
+import { testUtils } from 'src/core/utils/test-utils';
 import { tracklistActions } from '../actions';
 import { Tracklist } from '../tracklist';
 import { tracklistsReducer } from '../tracklists-reducer';

@@ -1,4 +1,4 @@
-import { testUtils } from 'src/core/utils/test';
+import { testUtils } from 'src/core/utils/test-utils';
 import { playerActions } from '../actions';
 import { audio as audioService, initAudio } from '../audio-service';
 

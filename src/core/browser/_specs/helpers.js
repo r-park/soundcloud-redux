@@ -1,3 +1,6 @@
+import sinon from 'sinon';
+
+
 export class MediaQueryListStub {
   handlers = [];
 
@@ -34,4 +37,9 @@ export function getMediaQueryRules() {
       orientation: 'landscape'
     }
   ];
+}
+
+
+export function stubMatchMedia(fn) {
+  global.matchMedia = sinon.stub().callsFake(fn);
 }

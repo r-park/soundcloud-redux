@@ -1,7 +1,13 @@
+import sinon from 'sinon';
+import { testUtils } from '../test-utils';
 import { localStorageAdapter } from '../local-storage';
 
 
 describe('utils', () => {
+  beforeAll(() => {
+    testUtils.mockLocalStorage();
+  });
+
   describe('localStorageAdapter', () => {
     let storageKey;
     let value;
@@ -16,13 +22,10 @@ describe('utils', () => {
     });
 
     it('should set serialized object into localStorage', () => {
-      spyOn(localStorage, 'setItem');
+      sinon.spy(localStorage, 'setItem');
       localStorageAdapter.setItem(storageKey, value);
 
-      expect(localStorage.setItem).toHaveBeenCalledWith(
-        storageKey,
-        JSON.stringify(value)
-      );
+      expect(localStorage.setItem.calledWith(storageKey, JSON.stringify(value))).toBe(true);
     });
 
     it('should get serialized object from localStorage', () => {
