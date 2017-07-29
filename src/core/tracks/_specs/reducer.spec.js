@@ -1,6 +1,6 @@
 import { is, Map } from 'immutable';
 import { tracklistActions } from 'src/core/tracklists';
-import { testUtils } from 'src/core/utils/test';
+import { testUtils } from 'src/core/utils/test-utils';
 import { tracksReducer } from '../reducer';
 import { createTrack } from '../track';
 

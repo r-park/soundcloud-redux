@@ -80,5 +80,23 @@ export const testUtils = {
       {actual: 0.95, input: 95,  display: '9.5'},
       {actual: 1,    input: 100, display: '10'}
     ];
+  },
+
+  mockLocalStorage() {
+    const store = {};
+
+    global.localStorage = {
+      getItem(key) {
+        return store[key] || null;
+      },
+
+      setItem(key, value) {
+        store[key] = value;
+      },
+
+      removeItem(key) {
+        delete store[key];
+      }
+    };
   }
 };

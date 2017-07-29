@@ -42,7 +42,7 @@ export function getMedia(rule) {
 
 export function getMqlObservables(rules) {
   let observables = rules.map(rule => {
-    const mediaQueryList = window.matchMedia(getMedia(rule));
+    const mediaQueryList = matchMedia(getMedia(rule));
 
     return Observable.fromEventPattern(
       handler => {

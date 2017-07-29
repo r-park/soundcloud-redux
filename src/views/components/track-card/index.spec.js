@@ -1,4 +1,5 @@
 import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
 import { shallow } from 'enzyme';
 import { Track } from 'src/core/tracks';
 import TrackCard from './index';
@@ -68,7 +69,6 @@ describe('views', () => {
       let link = getWrapper().find('Link');
       expect(link.length).toBe(1);
       expect(link.prop('to')).toBe(`/users/${track.userId}/tracks`);
-      expect(link.shallow().text()).toBe(track.username);
     });
 
     it('should display track title', () => {

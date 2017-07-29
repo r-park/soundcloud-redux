@@ -1,6 +1,6 @@
-import { browserHistory as history } from 'react-router';
 import { call, select, take } from 'redux-saga/effects';
 import { fetchSearchResults } from 'src/core/api';
+import history from 'src/core/history';
 import { getTracklistById } from 'src/core/tracklists';
 import { searchActions } from '../actions';
 import { loadSearchResults, watchNavigateToSearch } from '../sagas';
@@ -60,7 +60,7 @@ describe('search', () => {
 
         generator.next(action);
 
-        expect(history.push).toHaveBeenCalledWith(action.payload.pathname);
+        expect(history.push).toHaveBeenCalledWith(action.payload);
       });
     });
   });

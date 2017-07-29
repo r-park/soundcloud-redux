@@ -1,21 +1,24 @@
+import { getMediaQueryRules, MediaQueryListStub, stubMatchMedia } from './helpers';
 import { browserActions } from '../actions';
 import { em, getMedia, mediaQuery } from '../media-query/media-query';
-import { getMediaQueryRules, MediaQueryListStub } from './helpers';
 
 
 describe('browser', () => {
   describe('mediaQuery', () => {
     let mediaQueryLists;
 
-
-    beforeEach(() => {
+    beforeAll(() => {
       mediaQueryLists = [];
 
-      spyOn(window, 'matchMedia').and.callFake(media => {
+      stubMatchMedia(media => {
         let mql = new MediaQueryListStub(media);
         mediaQueryLists.push(mql);
         return mql;
       });
+    });
+
+    afterEach(() => {
+      mediaQueryLists = [];
     });
 
 
@@ -31,63 +34,67 @@ describe('browser', () => {
       });
     });
 
-    it('should debounce emitted results', done => {
-      let count = 0;
-      let finalResults = null;
+    it('should debounce emitted results', () => {
+      return new Promise(resolve => {
+        let count = 0;
+        let finalResults = null;
 
-      let expectedAction = browserActions.mediaQueryChanged({
-        medium: false,
-        large: true,
-        landscape: false
+        let expectedAction = browserActions.mediaQueryChanged({
+          medium: false,
+          large: true,
+          landscape: false
+        });
+
+        mediaQuery.matches(getMediaQueryRules(), results => {
+          count++;
+          finalResults = results;
+        });
+
+        setTimeout(() => {
+          mediaQueryLists[1].matches = true;
+          mediaQueryLists.forEach(mql => mql.dispatch());
+        }, 20);
+
+        setTimeout(() => {
+          expect(count).toBe(2); // 1 for initial results, plus 1 for manual dispatch
+          expect(finalResults).toEqual(expectedAction);
+          resolve();
+        }, 40);
       });
-
-      mediaQuery.matches(getMediaQueryRules(), results => {
-        count++;
-        finalResults = results;
-      });
-
-      setTimeout(() => {
-        mediaQueryLists[1].matches = true;
-        mediaQueryLists.forEach(mql => mql.dispatch());
-      }, 100);
-
-      setTimeout(() => {
-        expect(count).toBe(2); // 1 for initial results, plus 1 for manual dispatch
-        expect(finalResults).toEqual(expectedAction);
-        done();
-      }, 200);
     });
 
-    it('should unsubscribe', done => {
-      let count = 0;
+    it('should unsubscribe', () => {
+      return new Promise(resolve => {
+        let count = 0;
 
-      let unsubscribe = mediaQuery.matches(getMediaQueryRules(), () => {
-        count++; // count === 1 for initial results
+        const unsubscribe = mediaQuery.matches(getMediaQueryRules(), () => {
+          count++; // count === 1 for initial results
+        });
+
+        setTimeout(() => {
+          mediaQueryLists.forEach(mql => mql.dispatch()); // count === 2
+        }, 10);
+
+        setTimeout(() => {
+          unsubscribe();
+          mediaQueryLists.forEach(mql => mql.dispatch()); // count === 3
+        }, 20);
+
+        setTimeout(() => {
+          expect(count).toBe(2);
+          resolve();
+        }, 30);
       });
-
-      setTimeout(() => {
-        mediaQueryLists.forEach(mql => mql.dispatch()); // count === 2
-      }, 10);
-
-      setTimeout(() => {
-        unsubscribe();
-        mediaQueryLists.forEach(mql => mql.dispatch()); // count === 3
-      }, 20);
-
-      setTimeout(() => {
-        expect(count).toBe(2);
-        done();
-      }, 30);
     });
 
 
     describe('em()', () => {
       it('should throw TypeError if provided value is not a number', () => {
-        expect(() => em()).toThrowError(TypeError);
-        expect(() => em(null)).toThrowError(TypeError);
-        expect(() => em('1')).toThrowError(TypeError);
-        expect(() => em({})).toThrowError(TypeError);
-        expect(() => em([])).toThrowError(TypeError);
+        expect(() => em()).toThrow(TypeError);
+        expect(() => em(null)).toThrow(TypeError);
+        expect(() => em('1')).toThrow(TypeError);
+        expect(() => em({})).toThrow(TypeError);
+        expect(() => em([])).toThrow(TypeError);
       });
 
       it('should convert provided number to string em value', () => {

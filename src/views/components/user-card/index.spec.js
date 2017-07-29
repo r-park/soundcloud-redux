@@ -37,7 +37,6 @@ describe('views', () => {
     it('should display trackCount label linked to user-tracks route', () => {
       let label = getWrapper().find('.user-stats__label').at(0);
       expect(label.prop('to')).toBe(`/users/${user.id}/tracks`);
-      expect(label.shallow().text()).toBe('Tracks');
     });
 
     it('should display FormattedInteger for trackCount', () => {
@@ -48,7 +47,6 @@ describe('views', () => {
     it('should display likesCount label linked to user-likes route', () => {
       let label = getWrapper().find('.user-stats__label').at(1);
       expect(label.prop('to')).toBe(`/users/${user.id}/likes`);
-      expect(label.shallow().text()).toBe('Likes');
     });
 
     it('should display FormattedInteger for likesCount', () => {
@@ -58,7 +56,7 @@ describe('views', () => {
 
     it('should display followersCount label', () => {
       let label = getWrapper().find('.user-stats__label').at(2);
-      expect(label.shallow().text()).toBe('Followers');
+      expect(label.length).toBe(1);
     });
 
     it('should display FormattedInteger for followersCount', () => {
@@ -68,7 +66,7 @@ describe('views', () => {
 
     it('should display followingsCount label', () => {
       let label = getWrapper().find('.user-stats__label').at(3);
-      expect(label.shallow().text()).toBe('Following');
+      expect(label.length).toBe(1);
     });
 
     it('should display FormattedInteger for followingsCount', () => {

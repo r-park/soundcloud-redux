@@ -1,5 +1,6 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
+import sinon from 'sinon';
 import request from 'superagent';
 import { waveformData } from './test-data';
 import Waveform from './index';
@@ -8,23 +9,12 @@ import Waveform from './index';
 describe('views', () => {
   describe('Waveform', () => {
     let props;
-    let response;
-    let server;
 
     beforeEach(() => {
       props = {
-        onReady: jasmine.createSpy('onReady'),
+        onReady: jest.fn(),
         url: 'http://waveform'
       };
-
-      response = [200, {'Content-type': 'application/json'}, JSON.stringify(waveformData)];
-
-      server = sinon.fakeServer.create();
-      server.respondWith('get', props.url, response);
-    });
-
-    afterEach(() => {
-      server.restore();
     });
 
 
@@ -34,14 +24,12 @@ describe('views', () => {
     });
 
     it('should fetch waveform data', () => {
-      spyOn(request, 'get').and.callThrough();
+      sinon.spy(request, 'get');
 
       mount(<Waveform {...props} />);
 
-      server.respond();
-
-      expect(request.get).toHaveBeenCalledTimes(1);
-      expect(request.get).toHaveBeenCalledWith(props.url);
+      expect(request.get.callCount).toBe(1);
+      expect(request.get.calledWith(props.url)).toBe(true);
     });
   });
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'enzyme';
-import { testUtils } from 'src/core/utils/test';
+import { testUtils } from 'src/core/utils/test-utils';
 import FormattedVolume from './index';
 
 

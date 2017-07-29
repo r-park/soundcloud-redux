@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { List } from 'immutable';
 import { createTrack } from 'src/core/tracks';
-import { testUtils } from 'src/core/utils/test';
+import { testUtils } from 'src/core/utils/test-utils';
 import { Tracklist } from './index';
 
 

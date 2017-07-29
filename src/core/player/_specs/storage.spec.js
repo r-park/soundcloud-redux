@@ -1,8 +1,14 @@
+import sinon from 'sinon';
+import { testUtils } from 'src/core/utils/test-utils';
 import { PLAYER_STORAGE_KEY } from 'src/core/constants';
 import { playerStorage } from '../storage';
 
 
 describe('player', () => {
+  beforeAll(() => {
+    testUtils.mockLocalStorage();
+  });
+
   describe('playerStorage', () => {
     let prefs;
 
@@ -29,13 +35,13 @@ describe('player', () => {
     });
 
     it('should put serialized prefs into localStorage', () => {
-      spyOn(localStorage, 'setItem');
+      sinon.spy(localStorage, 'setItem');
       playerStorage.setPrefs(prefs);
 
-      expect(localStorage.setItem).toHaveBeenCalledWith(
+      expect(localStorage.setItem.calledWith(
         PLAYER_STORAGE_KEY,
         JSON.stringify(prefs)
-      );
+      )).toBe(true);
     });
 
     it('should get volume from localStorage', () => {
