@@ -10,6 +10,7 @@ import history from './core/history';
 import configureStore from './core/store';
 import mediaQueryRules from './views/media';
 import App from './views/app';
+import registerServiceWorker from './register-service-worker';
 
 
 const rootElement = document.getElementById('root');
@@ -42,4 +43,5 @@ store.dispatch(appActions.initApp({
 }));
 
 
+registerServiceWorker();
 render(App);
