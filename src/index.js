@@ -1,5 +1,3 @@
-import './views/styles/styles.css';
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -11,6 +9,8 @@ import configureStore from './core/store';
 import mediaQueryRules from './views/media';
 import App from './views/app';
 import registerServiceWorker from './register-service-worker';
+
+import './views/styles/styles.css';
 
 
 const rootElement = document.getElementById('root');
