@@ -23,7 +23,6 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
     "eject": "react-scripts eject",
     "heroku-postbuild": "npm run build",
-    "pretest:server": "npm run build",
     "server": "cross-env NODE_ENV=development nodemon -w 'server/**/*.*' server/main.js",
     "start": "run-p start:css start:js",
     "start:css": "npm run build:css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
