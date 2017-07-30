@@ -1,3 +1,21 @@
+<a name="1.0.0"></a>
+# [1.0.0](https://github.com/r-park/soundcloud-redux/compare/v0.4.0...v1.0.0) (2017-07-30)
+
+
+### Bug Fixes
+
+* **ci:** command `npm test:ci` is invalid ([6ea18f4](https://github.com/r-park/soundcloud-redux/commit/6ea18f4))
+* **components:** accessing `PropTypes` via the main `React` package is deprecated ([ef0d014](https://github.com/r-park/soundcloud-redux/commit/ef0d014))
+* **components:** replace es7 function bind syntax ([21858d1](https://github.com/r-park/soundcloud-redux/commit/21858d1))
+* **components:** update import paths ([4bc83e5](https://github.com/r-park/soundcloud-redux/commit/4bc83e5))
+* **routing:** router and sagas should use shared `history` instance ([2e02201](https://github.com/r-park/soundcloud-redux/commit/2e02201))
+* **sagas:** update import paths and resolve deprecations ([4412b25](https://github.com/r-park/soundcloud-redux/commit/4412b25))
+* **server:** update paths ([bfca781](https://github.com/r-park/soundcloud-redux/commit/bfca781))
+* **UserCard:** use `NavLink` to highlight active link ([528295f](https://github.com/r-park/soundcloud-redux/commit/528295f))
+* **UserPage:** `props.params` is now `props.match.params` in latest `react-router` ([ad0d201](https://github.com/r-park/soundcloud-redux/commit/ad0d201))
+
+
+
 <a name="0.4.0"></a>
 # [0.4.0](https://github.com/r-park/soundcloud-redux/compare/v0.3.0...v0.4.0) (2016-08-08)
 
